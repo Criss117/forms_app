@@ -4,18 +4,18 @@ import Link from "next/link";
 
 const footerButtons = [
   {
-    label: "Volver al inicio de sesión",
+    label: "Volver al login",
     href: PUBLIC_ROUTES.LOGIN,
   },
 ];
 
-const Confirmed = () => {
+const PassWordChangedPage = () => {
   return (
     <CardWrapper
-      headerLabel="Cuenta Confirmada Correctamente"
+      headerLabel="Contraseña cambiada correctamente"
       footerButtons={footerButtons}
     >
-      <p className=" my-2 text-center">
+      <p className="my-2 text-center">
         Ya puedes
         <span className="pl-1 underline hover:text-sky-800">
           <Link href={PUBLIC_ROUTES.LOGIN}>iniciar sesión</Link>
@@ -25,4 +25,4 @@ const Confirmed = () => {
   );
 };
 
-export default Confirmed;
+export default PassWordChangedPage;

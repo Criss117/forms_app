@@ -1,6 +1,5 @@
 import { CardWrapper } from "@/components";
 import { PUBLIC_ROUTES } from "@/lib/constants";
-import Link from "next/link";
 
 const footerButtons = [
   {
@@ -9,20 +8,17 @@ const footerButtons = [
   },
 ];
 
-const Confirmed = () => {
+const ConFirmPage = () => {
   return (
     <CardWrapper
-      headerLabel="Cuenta Confirmada Correctamente"
+      headerLabel="Correo Verificado Correctamente"
       footerButtons={footerButtons}
     >
       <p className=" my-2 text-center">
-        Ya puedes
-        <span className="pl-1 underline hover:text-sky-800">
-          <Link href={PUBLIC_ROUTES.LOGIN}>iniciar sesión</Link>
-        </span>
+        Verifica la bandeja de entrada de tu correo para recuperar tu cuenta.
       </p>
     </CardWrapper>
   );
 };
 
-export default Confirmed;
+export default ConFirmPage;

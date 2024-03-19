@@ -22,6 +22,10 @@ const CLIENT_ERRROS = [
     CODE: 404,
     MESSAGE: "No encontrado",
   },
+  {
+    CODE: 409,
+    MESSAGE: "Hubo un error",
+  },
 ];
 
 const DB_ERRORS = [

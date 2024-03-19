@@ -1,34 +1,21 @@
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { verifyResponse } from "@/lib";
-import { PUBLIC_ROUTES } from "@/lib/constants";
+import { PRIVATE_ROUTES } from "@/lib/constants";
 import { LoginSchema } from "@/actions/auth/schema";
 import { login } from "@/actions/auth";
+import { useCommonForm } from ".";
 
 const useLogin = () => {
-  const { push } = useRouter();
-  const [error, setError] = useState<string | undefined>("");
-  const [isPending, startTransition] = useTransition();
-
-  const setErrorHandler = (message: string, ms: number = 3000) => {
-    if (message.length === 0) return;
-    setError(message);
-    setTimeout(() => {
-      setError("");
-    }, ms);
-  };
-
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const commonFormConfig = {
+    schema: LoginSchema,
     defaultValues: {
       email: "",
       password: "",
     },
-  });
+  };
+
+  const { error, form, isPending, push, setErrorHandler, startTransition } =
+    useCommonForm<typeof LoginSchema>(commonFormConfig);
 
   const onSubmit = form.handleSubmit((values: z.infer<typeof LoginSchema>) => {
     setErrorHandler("");
@@ -40,12 +27,9 @@ const useLogin = () => {
           return;
         }
 
-        // const state = verifyResponse(response);
-        // if (!state?.success) {
-        //   setErrorHandler(state?.error || "");
-        //   return;
-        // }
-        // push(PUBLIC_ROUTES.ACCOUNT_CREATED);
+        if (response.ok) {
+          push(PRIVATE_ROUTES.PRIVATE_ROUTES);
+        }
       });
     });
   });

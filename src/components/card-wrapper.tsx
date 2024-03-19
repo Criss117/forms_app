@@ -36,7 +36,7 @@ const CardWrapper = ({
         cardClass
       )}
     >
-      <CardHeader className={cn(headerClass)}>
+      <CardHeader className={cn("text-center", headerClass)}>
         <Header label={headerLabel} />
       </CardHeader>
       <CardContent className={cn(contentClass)}>{children}</CardContent>

@@ -1,29 +1,29 @@
-import { z } from "zod";
-
-import { createUser } from "@/actions/user/actions";
-import { CreateUserSchema } from "@/actions/user";
+import { changePass, ChangePassSchema } from "@/actions/user";
+import useCommonForm from "./use-common-form";
 import { verifyResponse } from "@/lib";
 import { PUBLIC_ROUTES } from "@/lib/constants";
-import { useCommonForm } from ".";
+import { z } from "zod";
+import { useState } from "react";
 
-const useRegister = () => {
+interface Props {
+  token: string;
+}
+
+const useChangePass = ({ token }: Props) => {
   const commonFormConfig = {
-    schema: CreateUserSchema,
+    schema: ChangePassSchema,
     defaultValues: {
-      email: "",
       password: "",
       password_confirm: "",
-      name: "",
-      surname: "",
-      phone: "",
+      token,
     },
   };
 
-  const { error, isPending, form, setErrorHandler, push, startTransition } =
-    useCommonForm<typeof CreateUserSchema>(commonFormConfig);
+  const { error, form, isPending, push, setErrorHandler, startTransition } =
+    useCommonForm<typeof ChangePassSchema>(commonFormConfig);
 
   const onSubmit = form.handleSubmit(
-    (values: z.infer<typeof CreateUserSchema>) => {
+    (values: z.infer<typeof ChangePassSchema>) => {
       const { password, password_confirm } = values;
       if (password !== password_confirm) {
         setErrorHandler("Las contraseñas no coinciden", 6000);
@@ -33,13 +33,14 @@ const useRegister = () => {
       setErrorHandler("");
 
       startTransition(async () => {
-        await createUser(values).then(({ response }) => {
+        await changePass(values).then(({ response }) => {
           const state = verifyResponse(response);
+          console.log({ response });
           if (!state?.success) {
-            setErrorHandler(state?.error || "");
+            setErrorHandler(state?.error || "", 6000);
             return;
           }
-          push(PUBLIC_ROUTES.ACCOUNT_CREATED);
+          push(PUBLIC_ROUTES.PASSWORD_CHANGED);
         });
       });
     }
@@ -54,4 +55,4 @@ const useRegister = () => {
   };
 };
 
-export default useRegister;
+export default useChangePass;

@@ -2,6 +2,10 @@ export const PUBLIC_ROUTES = {
   ROOT: "/",
   LOGIN: "/login",
   REGISTER: "/account/register",
+  FORGOT_PASSWORD: "/account/forgot-password",
+  FORGOT_PASSWORD_CONFIRM: "/account/forgot-password/confirm",
+  CHANGE_PASSWORD: "/account/forgot-password/change-password",
+  PASSWORD_CHANGED: "/account/forgot-password/password-changed",
   ACCOUNT_CREATED: "/account/register/created",
   REGISTER_CONFIRM: "/account/register/confirm",
 };

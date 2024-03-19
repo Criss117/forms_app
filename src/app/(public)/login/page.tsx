@@ -9,7 +9,7 @@ const footerButtons = [
   },
   {
     label: "Olvidaste tu contraseña?",
-    href: "/auth/forgot-password",
+    href: PUBLIC_ROUTES.FORGOT_PASSWORD,
   },
 ];
 

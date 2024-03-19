@@ -75,4 +75,5 @@ export const EmailSchema = z.object({
 export const ChangePassSchema = z.object({
   token: TokenSchema.shape.token,
   password: CreateUserSchema.shape.password,
+  password_confirm: CreateUserSchema.shape.password,
 });

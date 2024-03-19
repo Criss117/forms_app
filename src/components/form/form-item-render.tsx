@@ -6,6 +6,7 @@ import {
   FormMessage,
   Input,
 } from "@/components/ui";
+import { cn } from "@/lib";
 
 interface Props {
   label: string;
@@ -13,6 +14,7 @@ interface Props {
   placeholder: string;
   field: any;
   type: HTMLInputTypeAttribute | undefined;
+  hidden?: boolean;
 }
 
 const FormItemRender = ({
@@ -21,14 +23,15 @@ const FormItemRender = ({
   placeholder,
   field,
   type,
+  hidden,
 }: Props) => {
   return (
-    <FormItem>
+    <FormItem className={cn(hidden && "hidden")}>
       <FormLabel>{label}</FormLabel>
       <FormControl>
         <Input
           {...field}
-          disabled={disabled}
+          disabled={disabled || hidden}
           placeholder={placeholder}
           type={type}
         />

@@ -20,8 +20,10 @@ export function verifyResponse(
 ) {
   if (!response)
     return {
-      error: "Error de peticion",
+      error: "Hubo un error",
       success: false,
+      statusCode: 404,
+      errorCode: -1,
     };
 
   const { CLIENT_ERRROS, DB_ERRORS, SUCCESSFULL } = STATUS_CODE;

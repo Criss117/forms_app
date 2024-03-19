@@ -1,4 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
+import { DefaultValues } from "react-hook-form";
 
 type Name =
   | "name"
@@ -13,6 +14,7 @@ interface FormInput {
   label: string;
   placeholder: string;
   type: HTMLInputTypeAttribute | undefined;
+  hidden?: boolean;
 }
 
 const REGISTER_FORM_INPUTS: FormInput[] = [
@@ -69,7 +71,40 @@ const LOGIN_FORM_INPUTS: FormInput[] = [
   },
 ];
 
+const VERIFY_EMAIL_INPUTS = [
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "t4u3u3@example.com",
+    type: "email",
+  },
+];
+
+const CHANGE_PASS_INPUTS = [
+  {
+    name: "password",
+    label: "Contraseña",
+    placeholder: "********",
+    type: "password",
+  },
+  {
+    name: "password_confirm",
+    label: "Repite la contraseña",
+    placeholder: "********",
+    type: "password",
+  },
+  {
+    name: "token",
+    label: "token",
+    placeholder: "token",
+    type: "text",
+    hidden: true,
+  },
+];
+
 export const FORM_INPUTS = {
   REGISTER_FORM_INPUTS,
   LOGIN_FORM_INPUTS,
+  VERIFY_EMAIL_INPUTS,
+  CHANGE_PASS_INPUTS,
 };

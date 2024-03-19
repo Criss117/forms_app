@@ -31,7 +31,7 @@ const FormRender = ({
       <form onSubmit={onSubmit}>
         <FormError message={error} />
         <fieldset className={cn("grid grid-cols-1 gap-2", fieldsetClass)}>
-          {inputs.map(({ label, placeholder, type, name }, index) => (
+          {inputs.map(({ label, placeholder, type, name, hidden }, index) => (
             <FormField
               key={index}
               control={form.control}
@@ -43,6 +43,7 @@ const FormRender = ({
                   disabled={isPending}
                   placeholder={placeholder}
                   type={type}
+                  hidden={hidden}
                 />
               )}
             />

@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Form, FormField, Spinner } from "@/components/ui";
-import { FormError, FormItemRender, FormRender } from "@/components/form";
+import { FormRender } from "@/components/form";
 import { FORM_INPUTS } from "@/lib/constants";
 import { useRegister } from "@/hooks";
 
