@@ -7,4 +7,7 @@ export const API_ENDPOINTS = {
     LOGIN: "/auth",
     IS_AUTH: "/user/is-authenticated",
   },
+  FOLDER: {
+    FIND_ALL: "/folder",
+  },
 };

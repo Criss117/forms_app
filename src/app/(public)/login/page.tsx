@@ -1,3 +1,4 @@
+"use client";
 import { CardWrapper } from "@/components";
 import { PUBLIC_ROUTES } from "@/lib/constants";
 import { LoginForm } from "./_components";

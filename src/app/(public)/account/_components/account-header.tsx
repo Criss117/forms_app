@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui";
+import { Button, FormsAppTitle } from "@/components/ui";
 import { cn } from "@/lib";
 import { NAV_PUBLIC_ROUTES, PUBLIC_ROUTES } from "@/lib/constants";
 import Link from "next/link";
@@ -16,13 +16,7 @@ const AccountHeader = () => {
   return (
     <header className="bg-white absolute w-full top-0 shadow-sm py-2">
       <div className="flex justify-between items-center h-full w-[95%] md:w-[70%] mx-auto">
-        <Link
-          href={PUBLIC_ROUTES.ROOT}
-          className="md:flex gap-2 items-center hidden"
-        >
-          <span className="w-10 h-10 bg-lightaccent-100 rounded-full"></span>
-          <h1 className="text-2xl font-semibold hidden md:block">Forms App</h1>
-        </Link>
+        <FormsAppTitle href={PUBLIC_ROUTES.ROOT} />
         <nav className="w-full md:w-fit">
           <ul className="flex gap-2 w-full justify-between">
             {NAV_PUBLIC_ROUTES.map(({ label, href }) => (

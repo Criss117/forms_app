@@ -3,6 +3,8 @@ import { twMerge } from "tailwind-merge";
 
 import { CommonAPIResponse } from "./models";
 import { PRIVATE_ROUTES, STATUS_CODE } from "@/lib/constants";
+import { getServerSession } from "next-auth";
+import authConfig from "./auth/auth.config";
 
 interface IError {
   error: string;

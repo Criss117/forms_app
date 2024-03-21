@@ -28,7 +28,7 @@ const useLogin = () => {
         }
 
         if (response.ok) {
-          push(PRIVATE_ROUTES.PRIVATE_ROUTES);
+          push(PRIVATE_ROUTES.DASHBOARD_HOME);
         }
       });
     });

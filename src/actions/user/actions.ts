@@ -56,11 +56,9 @@ async function createUserHandler(
   }
 }
 
-async function confirmAccountHandler(
-  prm: TokenInputType
-): Promise<ConfirmAccountReturnType> {
-  const { token } = prm;
-
+async function confirmAccountHandler({
+  token,
+}: TokenInputType): Promise<ConfirmAccountReturnType> {
   try {
     const { data, status }: AxiosResponse<CommonAPIResponse> =
       await formApi.patch(API_ENDPOINTS.USER.CONFIRM_ACCOUNT, {

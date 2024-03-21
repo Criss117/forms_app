@@ -23,11 +23,12 @@ const useVerifyEmail = () => {
     startTransition(async () => {
       await verifyEmail(values).then(({ response }) => {
         const state = verifyResponse(response);
-        console.log({ response });
         if (!state?.success) {
           setErrorHandler(state?.error || "");
           return;
         }
+
+        push(PUBLIC_ROUTES.FORGOT_PASSWORD_CONFIRM);
       });
     });
   });
