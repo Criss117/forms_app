@@ -1,17 +1,21 @@
 "use client";
-import { SessionProvider } from "next-auth/react";
-import { PropsWithChildren } from "react";
-import { NavBar } from "./_components";
+import { PropsWithChildren, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
-const layout = ({ children }: PropsWithChildren) => {
-  return (
-    <SessionProvider>
-      <main className="bg-lightbg-400 h-full">
-        <NavBar />
-        {children}
-      </main>
-    </SessionProvider>
-  );
+import { useFolderStore } from "@/zustand";
+
+const DashboardLayout = ({ children }: PropsWithChildren) => {
+  const { data } = useSession();
+  const { clearFolders, getFolders } = useFolderStore();
+
+  useEffect(() => {
+    getFolders(data?.user?.jwt);
+    return () => {
+      clearFolders();
+    };
+  }, [data]);
+
+  return <>{children}</>;
 };
 
-export default layout;
+export default DashboardLayout;

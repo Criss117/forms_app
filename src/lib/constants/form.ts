@@ -3,7 +3,7 @@ export const FORM_MESSAGE = {
     REQUIRED: "El nombre es requerido",
     INVALID_TYPE: "Entradad inválida",
     MIN_LENGHT: "El nombre debe tener al menos 4 caracteres",
-    MAX_LENGHT: "El nombre debe tener un maximo de 32 caracteres",
+    MAX_LENGHT: "El nombre es demaciado largo",
   },
   SURNAME: {
     REQUIRED: "El apellido es requerido",

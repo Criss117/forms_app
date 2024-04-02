@@ -1,22 +1,22 @@
 "use client";
-
 import { NavMenu } from "@/components";
-import { Button, FormsAppTitle } from "@/components/ui";
+import { FormsAppTitle } from "@/components/ui";
 import { PRIVATE_ROUTES } from "@/lib/constants";
+import { CreateFormPopover } from ".";
+import { useSession } from "next-auth/react";
 
 const NavBar = () => {
+  const { data, status } = useSession();
+
   return (
     <header className="bg-white shadow-sm flex justify-between px-5 py-2">
       <div className="flex items-center gap-14">
         <FormsAppTitle href={PRIVATE_ROUTES.DASHBOARD_HOME} />
         <NavMenu />
-        <Button variant={"default"} className="bg-lightaccent-100">
-          Crear
-        </Button>
+        <CreateFormPopover />
       </div>
-
       <div className="flex items-center">
-        <p>usuario</p>
+        {status === "authenticated" && <p>{data?.user?.name}</p>}
       </div>
     </header>
   );

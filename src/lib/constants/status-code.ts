@@ -19,6 +19,10 @@ const CLIENT_ERRROS = [
     MESSAGE: "No autorizado",
   },
   {
+    CODE: 403,
+    MESSAGE: "No autorizado",
+  },
+  {
     CODE: 404,
     MESSAGE: "No encontrado",
   },

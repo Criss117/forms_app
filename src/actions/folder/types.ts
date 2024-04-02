@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { JwtSchema } from "@/actions/schemas";
 import { ActionState } from "@/lib";
+import { CreateFolderSchema } from "./schema";
 
 export type Folder = {
   id: string;
@@ -16,3 +17,6 @@ export type FindFoldersReturnType = ActionState<
   FindFoldersInputType,
   Array<Folder>
 >;
+
+export type CreateFolderInputType = z.infer<typeof CreateFolderSchema>;
+export type CreateFolderReturnType = ActionState<CreateFolderInputType, Folder>;

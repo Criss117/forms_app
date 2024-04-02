@@ -9,5 +9,6 @@ export const API_ENDPOINTS = {
   },
   FOLDER: {
     FIND_ALL: "/folder",
+    CREATE: "/folder",
   },
 };

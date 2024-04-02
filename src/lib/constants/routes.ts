@@ -12,11 +12,7 @@ export const PUBLIC_ROUTES = {
 
 export const PRIVATE_ROUTES = {
   DASHBOARD_HOME: "/dashboard",
-  DASHBOARD_PROFILE: "/dashboard/profile",
-  DASHBOARD_SETTINGS: "/dashboard/settings",
-  DASHBOARD_SETTINGS_PROFILE: "/dashboard/settings/profile",
-  DASHBOARD_SETTINGS_PASSWORD: "/dashboard/settings/password",
-  PRIVATE_ROUTES: "/private",
+  FOLDERS_HOME: "/dashboard/folders",
 };
 
 export const NAV_PUBLIC_ROUTES = [

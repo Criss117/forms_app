@@ -35,7 +35,7 @@ export function verifyResponse(
   for (const error of DB_ERRORS) {
     if (response.errorCode === error.CODE) {
       res = {
-        error: error.MESSAGE,
+        error: response.message || error.MESSAGE,
         success: false,
         statusCode: response.statusCode,
         errorCode: response.errorCode,
@@ -49,7 +49,7 @@ export function verifyResponse(
   for (const error of CLIENT_ERRROS) {
     if (response.statusCode === error.CODE) {
       res = {
-        error: error.MESSAGE,
+        error: response.message || error.MESSAGE,
         success: false,
         statusCode: response.statusCode,
       };
@@ -87,4 +87,16 @@ export function isPrivateRoute(path: string) {
   });
 
   return isPrivateRoute;
+}
+
+export function formatDate(isoDateString: string) {
+  const date = new Date(isoDateString);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return date.toLocaleString("es-ES", options);
 }

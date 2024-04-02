@@ -1,9 +1,7 @@
 "use client";
 
-import { sleep } from "@/lib";
+import { useEffect, useState } from "react";
 import { useFolderStore } from "@/zustand";
-import { useSession } from "next-auth/react";
-import { useEffect, useState, useTransition } from "react";
 
 interface NavInfo {
   itemName: string;
@@ -20,23 +18,15 @@ const initialNavInfo: Array<NavInfo> = [
     itemName: "Carpetas",
     items: [],
   },
+  {
+    itemName: "Recientes",
+    items: [],
+  },
 ];
 
 const useNavMenu = () => {
   const [navInfo, setNavInfo] = useState<Array<NavInfo>>(initialNavInfo);
-  const { data, status } = useSession();
-  const [isPending, setTransition] = useTransition();
-  const { folders, getFolders } = useFolderStore();
-
-  useEffect(() => {
-    if (status === "loading" || data === undefined || data?.user?.jwt === null)
-      return;
-
-    setTransition(async () => {
-      await sleep(4000);
-      getFolders(data?.user?.jwt);
-    });
-  }, [data]);
+  const { folders, isPending } = useFolderStore();
 
   useEffect(() => {
     if (folders.length === 0) return;
@@ -46,7 +36,7 @@ const useNavMenu = () => {
           itemName: "Carpetas",
           items: folders.map((folder) => ({
             name: folder.name,
-            href: `/folder/${folder.id}`,
+            href: `/dashboard/folder/${folder.id}`,
           })),
         };
       }

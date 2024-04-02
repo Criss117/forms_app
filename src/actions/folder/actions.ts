@@ -1,15 +1,19 @@
 "use server";
 
-import { getServerSession } from "next-auth";
 import { AxiosResponse } from "axios";
 
 import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
 import { createSafeAction, formApi } from "@/lib";
-import authConfig from "@/lib/auth/auth.config";
 
-import { FindFoldersInputType, FindFoldersReturnType } from "./types";
+import {
+  CreateFolderInputType,
+  CreateFolderReturnType,
+  FindFoldersInputType,
+  FindFoldersReturnType,
+} from "./types";
 import { JwtSchema } from "../schemas";
+import { CreateFolderSchema } from "./schema";
 
 async function findFoldershandler({
   jwtoken,
@@ -54,30 +58,23 @@ async function findFoldershandler({
   }
 }
 
-export const findFolders = createSafeAction(JwtSchema, findFoldershandler);
-
-export async function findAllFolders() {
-  const session = await getServerSession(authConfig);
-  const jwt = session?.user.jwt;
-
-  if (!jwt) {
-    return {
-      response: {
-        statusCode: 401,
-        message: "Unauthorized",
-      },
-    };
-  }
-
+async function createFolderHandler(
+  folder: CreateFolderInputType
+): Promise<CreateFolderReturnType> {
   try {
-    const { data, status }: AxiosResponse<CommonAPIResponse> =
-      await formApi.get(API_ENDPOINTS.FOLDER.FIND_ALL, {
+    const { data, status } = await formApi.post(
+      API_ENDPOINTS.FOLDER.CREATE,
+      {
+        name: folder.name,
+      },
+      {
         headers: {
-          Authorization: `Bearer ${jwt}`,
+          Authorization: `Bearer ${folder.jwtoken}`,
         },
-      });
+      }
+    );
 
-    if (status !== 200) {
+    if (status !== 201) {
       return {
         response: {
           statusCode: status,
@@ -108,3 +105,9 @@ export async function findAllFolders() {
     };
   }
 }
+
+export const findFolders = createSafeAction(JwtSchema, findFoldershandler);
+export const createFolder = createSafeAction(
+  CreateFolderSchema,
+  createFolderHandler
+);
