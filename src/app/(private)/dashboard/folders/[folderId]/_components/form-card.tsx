@@ -1,6 +1,6 @@
 "use client";
+import Link from "next/link";
 
-import { Folder } from "@/actions/folder/types";
 import { formatDate } from "@/lib";
 import {
   Card,
@@ -9,31 +9,28 @@ import {
   CardTitle,
   Skeleton,
 } from "@/components/ui";
-import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/lib/constants";
+import { FormHeader } from "@/actions/form";
 
 interface Props {
-  folder: Folder;
+  form: FormHeader;
 }
 
-const FolderCard = ({ folder }: Props) => {
-  const { createdAt, formCount, id, name } = folder;
+const FormCard = ({ form }: Props) => {
+  const { createdAt, id, name } = form;
 
   return (
-    <Link href={`${PRIVATE_ROUTES.FOLDERS_HOME}/${id}`}>
+    <Link href={`${PRIVATE_ROUTES.FORM_HOME}/${id}`}>
       <Card
         className="
           mx-auto w-[100%] sm:w-[80%] md:w-xs 
-          bg-gradient-to-br to-lightaccent-100 
-          from-orange-700 hover:opacity-90 transition"
+          bg-gradient-to-br to-indigo-500
+          from-indigo-700 hover:opacity-90 transition"
       >
         <CardHeader>
           <CardTitle className="text-white">{name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="font-semibold text-white">
-            Encuestas: <span className="font-normal">{formCount}</span>
-          </p>
           <p className="font-semibold text-white">
             Creado:{" "}
             <span className="text-sm text-gray-100 font-normal">
@@ -46,10 +43,10 @@ const FolderCard = ({ folder }: Props) => {
   );
 };
 
-export const FolderCardSkeleton = () => {
+export const FormCardSkeleton = () => {
   return (
-    <Skeleton className="bg-white h-40 mx-auto w-[100%] sm:w-[80%] md:w-xs" />
+    <Skeleton className="bg-white h-30 mx-auto w-[100%] sm:w-[80%] md:w-xs" />
   );
 };
 
-export default FolderCard;
+export default FormCard;

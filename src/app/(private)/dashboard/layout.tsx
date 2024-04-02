@@ -3,13 +3,15 @@ import { PropsWithChildren, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 import { useFolderStore } from "@/zustand";
+import { useFolderActions } from "@/hooks";
 
 const DashboardLayout = ({ children }: PropsWithChildren) => {
   const { data } = useSession();
-  const { clearFolders, getFolders } = useFolderStore();
+  const { clearFolders } = useFolderStore();
+  const { findAllFolders } = useFolderActions();
 
   useEffect(() => {
-    getFolders(data?.user?.jwt);
+    findAllFolders();
     return () => {
       clearFolders();
     };

@@ -5,7 +5,7 @@ import { SideBarFolders, SideBarHeader } from ".";
 
 const SideBar = ({ children }: PropsWithChildren) => {
   return (
-    <div className="max-w-screen-xl flex mx-auto justify-center mt-5">
+    <div className="max-w-screen-xl flex mx-auto justify-center">
       <div className="flex w-full mx-2 gap-x-10">
         <aside className="w-2/12 hidden md:flex md:flex-col">
           <SideBarHeader />

@@ -14,6 +14,14 @@ export const CreateFolderSchema = z.object({
   jwtoken: JwtSchema.shape.jwtoken,
 });
 
+export const FindFolderSchema = z.object({
+  folderId: z.string({
+    required_error: FORM_MESSAGE.ID.REQUIRED,
+    invalid_type_error: FORM_MESSAGE.ID.INVALID_TYPE,
+  }),
+  jwtoken: JwtSchema.shape.jwtoken,
+});
+
 export const CreateFolderSchemaClient = z.object({
   name: CreateFolderSchema.shape.name,
 });

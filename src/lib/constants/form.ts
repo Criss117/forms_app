@@ -37,4 +37,9 @@ export const FORM_MESSAGE = {
     INVALID_TYPE: "El token es inválido",
     MIN_LENGHT: "El token debe tener 19 caracteres",
   },
+  ID: {
+    REQUIRED: "El ID es requerido",
+    INVALID_TYPE: "El ID es inválido",
+    MIN_LENGHT: "El ID debe tener 19 caracteres",
+  },
 };

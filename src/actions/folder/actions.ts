@@ -4,23 +4,25 @@ import { AxiosResponse } from "axios";
 
 import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
-import { createSafeAction, formApi } from "@/lib";
+import { createSafeAction, formApi, sleep } from "@/lib";
 
 import {
   CreateFolderInputType,
   CreateFolderReturnType,
+  FindFolderInputType,
+  FindFolderReturnType,
   FindFoldersInputType,
   FindFoldersReturnType,
 } from "./types";
 import { JwtSchema } from "../schemas";
-import { CreateFolderSchema } from "./schema";
+import { CreateFolderSchema, FindFolderSchema } from "./schema";
 
-async function findFoldershandler({
+async function findFoldersHandler({
   jwtoken,
 }: FindFoldersInputType): Promise<FindFoldersReturnType> {
   try {
     const { data, status }: AxiosResponse<CommonAPIResponse> =
-      await formApi.get(API_ENDPOINTS.FOLDER.FIND_ALL, {
+      await formApi.get(API_ENDPOINTS.FOLDER.FIND, {
         headers: {
           Authorization: `Bearer ${jwtoken}`,
         },
@@ -106,8 +108,47 @@ async function createFolderHandler(
   }
 }
 
-export const findFolders = createSafeAction(JwtSchema, findFoldershandler);
+export async function findFolderHandler(
+  folderInfo: FindFolderInputType
+): Promise<FindFolderReturnType> {
+  const { folderId, jwtoken } = folderInfo;
+  try {
+    const { data, status } = await formApi.get(
+      `${API_ENDPOINTS.FOLDER.FIND}/${folderId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      }
+    );
+
+    console.log({ data, status });
+    return {
+      response: {
+        statusCode: status,
+        message: data.message,
+        data: data.data,
+      },
+    };
+  } catch (error: AxiosResponse<CommonAPIResponse> | any) {
+    const {
+      response: { data },
+    } = error;
+
+    return {
+      response: {
+        statusCode: error.response.status,
+        message: data.message,
+        errorCode: data.errorCode,
+        error: data.error,
+      },
+    };
+  }
+}
+
+export const findFolders = createSafeAction(JwtSchema, findFoldersHandler);
 export const createFolder = createSafeAction(
   CreateFolderSchema,
   createFolderHandler
 );
+export const findFolder = createSafeAction(FindFolderSchema, findFolderHandler);

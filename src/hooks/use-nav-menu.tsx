@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useFolderStore } from "@/zustand";
+import { PRIVATE_ROUTES } from "@/lib/constants";
 
 interface NavInfo {
   itemName: string;
@@ -36,7 +37,7 @@ const useNavMenu = () => {
           itemName: "Carpetas",
           items: folders.map((folder) => ({
             name: folder.name,
-            href: `/dashboard/folder/${folder.id}`,
+            href: `${PRIVATE_ROUTES.FOLDERS_HOME}/${folder.id}`,
           })),
         };
       }

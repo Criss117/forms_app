@@ -13,6 +13,7 @@ export const PUBLIC_ROUTES = {
 export const PRIVATE_ROUTES = {
   DASHBOARD_HOME: "/dashboard",
   FOLDERS_HOME: "/dashboard/folders",
+  FORM_HOME: "/dashboard/form",
 };
 
 export const NAV_PUBLIC_ROUTES = [
