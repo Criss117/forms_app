@@ -15,6 +15,7 @@ interface Props {
   isPending: boolean;
   submitLabel: string;
   fieldsetClass?: string;
+  children?: React.ReactNode;
 }
 
 const FormRender = ({
@@ -25,6 +26,7 @@ const FormRender = ({
   isPending,
   submitLabel,
   fieldsetClass,
+  children,
 }: Props) => {
   return (
     <Form {...form}>
@@ -35,7 +37,7 @@ const FormRender = ({
             <FormField
               key={index}
               control={form.control}
-              name={name as "email" | "password"}
+              name={name as string}
               render={({ field }) => (
                 <FormItemRender
                   field={field}
@@ -49,6 +51,7 @@ const FormRender = ({
             />
           ))}
         </fieldset>
+        <fieldset>{children}</fieldset>
         <Button
           disabled={isPending}
           type="submit"

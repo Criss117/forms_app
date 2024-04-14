@@ -42,4 +42,15 @@ export const FORM_MESSAGE = {
     INVALID_TYPE: "El ID es inválido",
     MIN_LENGHT: "El ID debe tener 19 caracteres",
   },
+  FOLDER: {
+    REQUIRED: "La carpeta es requerido",
+    INVALID_TYPE: "La carpeta es inválida",
+    MAX_LENGHT: "Hubo un error",
+  },
+  DESCRIPTION: {
+    REQUIRED: "La descripción es requerida",
+    INVALID_TYPE: "La descripción es inválida",
+    MIN_LENGHT: "La descripción es demasiado corta",
+    MAX_LENGHT: "La descripción es demasiado larga",
+  },
 };

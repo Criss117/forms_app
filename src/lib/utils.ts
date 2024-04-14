@@ -5,6 +5,7 @@ import { CommonAPIResponse } from "./models";
 import { PRIVATE_ROUTES, STATUS_CODE } from "@/lib/constants";
 import { getServerSession } from "next-auth";
 import authConfig from "./auth/auth.config";
+import { AxiosResponse } from "axios";
 
 interface IError {
   error: string;
@@ -99,4 +100,23 @@ export function formatDate(isoDateString: string) {
   };
 
   return date.toLocaleString("es-ES", options);
+}
+
+export function getCharUpperCase(string: string, index: number = 0) {
+  return string.charAt(index).toUpperCase();
+}
+
+export function handlerError(error: AxiosResponse<CommonAPIResponse> | any) {
+  const {
+    response: { data },
+  } = error;
+
+  return {
+    response: {
+      statusCode: error.response.status,
+      message: data.message,
+      errorCode: data.errorCode,
+      error: data.error,
+    },
+  };
 }

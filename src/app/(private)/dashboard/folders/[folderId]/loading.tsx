@@ -1,11 +1,12 @@
-interface Props {
-  params: {
-    folder_id: string;
-  };
-}
+import { FolderBodySkeleton, FolderHeaderSkeleton } from "./_components";
 
 const FolderLoading = () => {
-  return <div>{JSON.stringify({ msg: "holaa" }, null, 2)}</div>;
+  return (
+    <>
+      <FolderHeaderSkeleton />
+      <FolderBodySkeleton />
+    </>
+  );
 };
 
 export default FolderLoading;

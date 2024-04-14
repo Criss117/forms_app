@@ -2,8 +2,8 @@
 import { NavMenu } from "@/components";
 import { FormsAppTitle } from "@/components/ui";
 import { PRIVATE_ROUTES } from "@/lib/constants";
-import { CreateFormPopover } from ".";
 import { signOut, useSession } from "next-auth/react";
+import CreateFormPopover from "./create-form-popover";
 
 const NavBar = () => {
   const { data, status } = useSession();
@@ -13,7 +13,7 @@ const NavBar = () => {
       <div className="flex items-center gap-14">
         <FormsAppTitle href={PRIVATE_ROUTES.DASHBOARD_HOME} />
         <NavMenu />
-        <CreateFormPopover />
+        <CreateFormPopover site="sm" />
       </div>
       <div className="flex items-center">
         {status === "authenticated" && (

@@ -7,9 +7,9 @@ interface Props extends PropsWhithClass {
 
 const Header = ({ label, className }: Props) => {
   return (
-    <div className="w-full flex flex-col gap-y-4 items-center justify-center">
+    <header className="w-full flex flex-col gap-y-4 items-center justify-center">
       <h2 className={cn("text-3xl font-semibold", className)}>{label}</h2>
-    </div>
+    </header>
   );
 };
 

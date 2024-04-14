@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 
 import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
-import { createSafeAction, formApi, sleep } from "@/lib";
+import { createSafeAction, formApi, handlerError, sleep } from "@/lib";
 
 import {
   CreateFolderInputType,
@@ -45,18 +45,7 @@ async function findFoldersHandler({
       },
     };
   } catch (error: AxiosResponse<CommonAPIResponse> | any) {
-    const {
-      response: { data },
-    } = error;
-
-    return {
-      response: {
-        statusCode: error.response.status,
-        message: data.message,
-        errorCode: data.errorCode,
-        error: data.error,
-      },
-    };
+    return handlerError(error);
   }
 }
 
@@ -93,18 +82,7 @@ async function createFolderHandler(
       },
     };
   } catch (error: AxiosResponse<CommonAPIResponse> | any) {
-    const {
-      response: { data },
-    } = error;
-
-    return {
-      response: {
-        statusCode: error.response.status,
-        message: data.message,
-        errorCode: data.errorCode,
-        error: data.error,
-      },
-    };
+    return handlerError(error);
   }
 }
 
@@ -122,7 +100,6 @@ export async function findFolderHandler(
       }
     );
 
-    console.log({ data, status });
     return {
       response: {
         statusCode: status,
@@ -131,18 +108,7 @@ export async function findFolderHandler(
       },
     };
   } catch (error: AxiosResponse<CommonAPIResponse> | any) {
-    const {
-      response: { data },
-    } = error;
-
-    return {
-      response: {
-        statusCode: error.response.status,
-        message: data.message,
-        errorCode: data.errorCode,
-        error: data.error,
-      },
-    };
+    return handlerError(error);
   }
 }
 

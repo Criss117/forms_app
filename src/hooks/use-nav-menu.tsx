@@ -27,7 +27,7 @@ const initialNavInfo: Array<NavInfo> = [
 
 const useNavMenu = () => {
   const [navInfo, setNavInfo] = useState<Array<NavInfo>>(initialNavInfo);
-  const { folders, isPending } = useFolderStore();
+  const { folders } = useFolderStore();
 
   useEffect(() => {
     if (folders.length === 0) return;
@@ -49,7 +49,6 @@ const useNavMenu = () => {
 
   return {
     navInfo,
-    isPending,
   };
 };
 

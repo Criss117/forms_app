@@ -16,14 +16,14 @@ interface Props {
   form: FormHeader;
 }
 
-const FormCard = ({ form }: Props) => {
+export const FormCard = ({ form }: Props) => {
   const { createdAt, id, name } = form;
 
   return (
     <Link href={`${PRIVATE_ROUTES.FORM_HOME}/${id}`}>
       <Card
         className="
-          mx-auto w-[100%] sm:w-[80%] md:w-xs 
+          mx-auto w-[100%] sm:w-[80%] md:w-xs h-32
           bg-gradient-to-br to-indigo-500
           from-indigo-700 hover:opacity-90 transition"
       >
@@ -45,8 +45,6 @@ const FormCard = ({ form }: Props) => {
 
 export const FormCardSkeleton = () => {
   return (
-    <Skeleton className="bg-white h-30 mx-auto w-[100%] sm:w-[80%] md:w-xs" />
+    <Skeleton className="bg-white h-32 mx-auto w-[100%] sm:w-[80%] md:w-xs" />
   );
 };
-
-export default FormCard;

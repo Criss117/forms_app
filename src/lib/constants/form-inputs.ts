@@ -16,6 +16,11 @@ interface FormInput {
   hidden?: boolean;
 }
 
+interface FormSelect {
+  label: string;
+  value: string;
+}
+
 const REGISTER_FORM_INPUTS: FormInput[] = [
   {
     name: "name",
@@ -106,6 +111,12 @@ const CREATE_FORM_INPUTS = [
     name: "name",
     label: "Nombre",
     placeholder: "Encuesta 1",
+    type: "text",
+  },
+  {
+    name: "description",
+    label: "Descripción",
+    placeholder: "Descripción de la encuesta",
     type: "text",
   },
 ];

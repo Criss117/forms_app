@@ -67,7 +67,6 @@ const useFolderActions = () => {
               return;
             }
             if (state?.success) {
-              console.log({ response, state });
               setFolder(response?.data);
             }
             if (!state?.success) {

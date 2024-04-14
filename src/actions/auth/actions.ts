@@ -25,7 +25,6 @@ export async function login(prm: LoginInputType) {
       status: res?.status,
     };
   } catch (error) {
-    console.log({ error });
     return {
       error: "Hubo un error",
       ok: false,

@@ -9,11 +9,10 @@ interface Props {
         href: string;
       }[]
     | [];
-  isPending: boolean;
 }
 
-const NavMenuItems = ({ items, isPending }: Props) => {
-  if (isPending && items.length === 0) {
+const NavMenuItems = ({ items }: Props) => {
+  if (items.length === 0) {
     return (
       <ul className="flex flex-col w-[300px] gap-y-2 m-2">
         <li>

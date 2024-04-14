@@ -11,7 +11,7 @@ import { NavMenuItems } from ".";
 import { useNavMenu } from "@/hooks";
 
 const NavMenu = () => {
-  const { navInfo, isPending } = useNavMenu();
+  const { navInfo } = useNavMenu();
 
   return (
     <NavigationMenu>
@@ -20,7 +20,7 @@ const NavMenu = () => {
           <NavigationMenuItem key={index}>
             <NavigationMenuTrigger>{itemName}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <NavMenuItems items={items} isPending={isPending} />
+              <NavMenuItems items={items} />
             </NavigationMenuContent>
           </NavigationMenuItem>
         ))}

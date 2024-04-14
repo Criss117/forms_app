@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { FORM_MESSAGE } from "@/lib/constants";
-import { JwtSchema } from "../schemas";
+import { JwtSchema } from "@/actions/schemas";
 
 export const CreateFolderSchema = z.object({
   name: z

@@ -16,7 +16,7 @@ interface Props {
   folder: Folder;
 }
 
-const FolderCard = ({ folder }: Props) => {
+export const FolderCard = ({ folder }: Props) => {
   const { createdAt, formCount, id, name } = folder;
 
   return (
@@ -51,5 +51,3 @@ export const FolderCardSkeleton = () => {
     <Skeleton className="bg-white h-40 mx-auto w-[100%] sm:w-[80%] md:w-xs" />
   );
 };
-
-export default FolderCard;

@@ -7,7 +7,7 @@ const FoldersView = () => {
   const { folders } = useFolderStore();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-10 mt-5">
       {folders.length === 0 && (
         <>
           <FolderCardSkeleton />

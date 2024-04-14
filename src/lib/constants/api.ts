@@ -11,4 +11,7 @@ export const API_ENDPOINTS = {
     FIND: "/folder",
     CREATE: "/folder",
   },
+  FORM: {
+    CREATE: "/form",
+  },
 };

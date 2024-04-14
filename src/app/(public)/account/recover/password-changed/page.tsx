@@ -1,3 +1,5 @@
+"use client";
+
 import { CardWrapper } from "@/components";
 import { PUBLIC_ROUTES } from "@/lib/constants";
 import Link from "next/link";

@@ -5,7 +5,6 @@ import { signOut } from "next-auth/react";
 
 const SignOutClient = () => {
   useEffect(() => {
-    console.log("client");
     signOut();
   }, []);
   return null;

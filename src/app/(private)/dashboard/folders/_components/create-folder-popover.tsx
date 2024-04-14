@@ -21,7 +21,6 @@ const FolderTrigger = () => {
 };
 
 const CreateFolderPopover = () => {
-  const { data } = useSession();
   const { error, form, isPending, createFolderSubmit } = useFolderActions();
   const { CREATE_FOLDER_INPUTS } = FORM_INPUTS;
 

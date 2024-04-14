@@ -4,7 +4,6 @@ import { findFolderHandler } from "@/actions/folder";
 import authConfig from "@/lib/auth/auth.config";
 
 import { FolderBody, FolderHeader } from "./_components";
-
 interface Props {
   params: {
     folderId: string;
