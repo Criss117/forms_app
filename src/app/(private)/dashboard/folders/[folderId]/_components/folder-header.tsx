@@ -6,6 +6,7 @@ import { UserRoundPlus } from "lucide-react";
 import { FolderComplete } from "@/actions/folder/types";
 import { Button, Skeleton } from "@/components/ui";
 import { getCharUpperCase } from "@/lib";
+import AddMemberPopover from "./add-member-popover";
 
 interface Props {
   folder: FolderComplete | undefined;
@@ -33,11 +34,7 @@ export const FolderHeader = ({ folder, statusCode }: Props) => {
           </span>
           <h2>{name}</h2>
         </div>
-
-        <Button variant={"outline"} className="gap-x-2">
-          <UserRoundPlus />
-          Agregar Miembro
-        </Button>
+        <AddMemberPopover />
       </div>
     </header>
   );

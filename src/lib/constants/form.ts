@@ -53,4 +53,10 @@ export const FORM_MESSAGE = {
     MIN_LENGHT: "La descripción es demasiado corta",
     MAX_LENGHT: "La descripción es demasiado larga",
   },
+  QUERY: {
+    REQUIRED: "La consulta es requerida",
+    INVALID_TYPE: "La consulta es inválida",
+    MIN_LENGHT: "La consulta es demasiado corta",
+    MAX_LENGHT: "La consulta es demasiado larga",
+  },
 };

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { FORM_MESSAGE } from "@/lib/constants";
+import { JwtSchema } from "../schemas";
 
 export const CreateUserSchema = z.object({
   name: z
@@ -76,4 +77,19 @@ export const ChangePassSchema = z.object({
   token: TokenSchema.shape.token,
   password: CreateUserSchema.shape.password,
   password_confirm: CreateUserSchema.shape.password,
+});
+
+export const FindUsersSchema = z.object({
+  query: z
+    .string({
+      required_error: FORM_MESSAGE.QUERY.REQUIRED,
+      invalid_type_error: FORM_MESSAGE.QUERY.INVALID_TYPE,
+    })
+    .min(3, { message: FORM_MESSAGE.QUERY.MIN_LENGHT })
+    .max(50, { message: FORM_MESSAGE.QUERY.MAX_LENGHT }),
+  jwtoken: JwtSchema.shape.jwtoken,
+});
+
+export const FindUsersClientSchema = z.object({
+  query: FindUsersSchema.shape.query,
 });

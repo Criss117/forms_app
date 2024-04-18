@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent, ChangeEvent } from "react";
 
 import { Button, Form, FormField, Spinner } from "../ui";
 import FormError from "./form-error";
@@ -7,26 +7,28 @@ import { cn } from "@/lib";
 
 interface Props {
   form: any;
-  onSubmit: (
-    e?: BaseSyntheticEvent<object, any, any> | undefined
-  ) => Promise<void>;
   error: string | undefined;
   inputs: Array<Record<string, any>>;
   isPending: boolean;
-  submitLabel: string;
+  submitLabel?: string;
   fieldsetClass?: string;
   children?: React.ReactNode;
+  onSubmit: (
+    e?: BaseSyntheticEvent<object, any, any> | undefined
+  ) => Promise<void>;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormRender = ({
   form,
-  onSubmit,
   error,
   inputs,
   isPending,
   submitLabel,
   fieldsetClass,
   children,
+  onSubmit,
+  onChange,
 }: Props) => {
   return (
     <Form {...form}>
@@ -46,19 +48,22 @@ const FormRender = ({
                   placeholder={placeholder}
                   type={type}
                   hidden={hidden}
+                  onChange={onChange}
                 />
               )}
             />
           ))}
         </fieldset>
         <fieldset>{children}</fieldset>
-        <Button
-          disabled={isPending}
-          type="submit"
-          className="w-full mt-5 bg-lightprimary-200 hover:bg-lightprimary-200/80"
-        >
-          {isPending ? <Spinner /> : <span>{submitLabel}</span>}
-        </Button>
+        {submitLabel && (
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="w-full mt-5 bg-lightprimary-200 hover:bg-lightprimary-200/80"
+          >
+            {isPending ? <Spinner /> : <span>{submitLabel}</span>}
+          </Button>
+        )}
       </form>
     </Form>
   );

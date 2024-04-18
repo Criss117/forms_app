@@ -130,6 +130,15 @@ const CREATE_FOLDER_INPUTS = [
   },
 ];
 
+const FIND_USERS_INPUTS = [
+  {
+    name: "query",
+    label: "Nombre o Email del usuario",
+    placeholder: "Cristian",
+    type: "text",
+  },
+];
+
 export const FORM_INPUTS = {
   REGISTER_FORM_INPUTS,
   LOGIN_FORM_INPUTS,
@@ -137,4 +146,5 @@ export const FORM_INPUTS = {
   CHANGE_PASS_INPUTS,
   CREATE_FORM_INPUTS,
   CREATE_FOLDER_INPUTS,
+  FIND_USERS_INPUTS,
 };

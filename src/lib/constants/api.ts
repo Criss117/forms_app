@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
     CHANGE_PASSWORD: "/user/change-password",
     LOGIN: "/auth",
     IS_AUTH: "/user/is-authenticated",
+    FINDMANY: "/user/find-users",
   },
   FOLDER: {
     FIND: "/folder",

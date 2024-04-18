@@ -4,9 +4,19 @@ import {
   CreateUserSchema,
   EmailSchema,
   ChangePassSchema,
+  FindUsersSchema,
 } from "./schema";
 import { ActionState } from "@/lib";
 
+export type User = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type CreateUserInputType = z.infer<typeof CreateUserSchema>;
 export type CreateUserReturnType = ActionState<CreateUserInputType, any>;
 
@@ -18,3 +28,6 @@ export type VerifyEmailReturnType = ActionState<EmailInputType, any>;
 
 export type ChangePassInputType = z.infer<typeof ChangePassSchema>;
 export type ChangePassReturnType = ActionState<ChangePassInputType, any>;
+
+export type FindUsersInputType = z.infer<typeof FindUsersSchema>;
+export type FindUsersReturnType = ActionState<FindUsersInputType, Array<User>>;

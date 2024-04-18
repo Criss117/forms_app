@@ -2,7 +2,7 @@
 import { AxiosResponse } from "axios";
 
 import { API_ENDPOINTS } from "@/lib/constants";
-import { createSafeAction, formApi } from "@/lib";
+import { createSafeAction, formApi, handlerError } from "@/lib";
 import { CommonAPIResponse } from "@/lib/models";
 import {
   ConfirmAccountReturnType,
@@ -17,6 +17,8 @@ import {
   ChangePassInputType,
   ChangePassReturnType,
   ChangePassSchema,
+  FindUsersInputType,
+  FindUsersSchema,
 } from ".";
 
 async function createUserHandler(
@@ -157,6 +159,31 @@ async function changePassHandler(
   }
 }
 
+async function findUsersHandler(userQuery: FindUsersInputType) {
+  const { jwtoken, query } = userQuery;
+
+  console.log({ jwtoken, query });
+
+  try {
+    const { data, status }: AxiosResponse<CommonAPIResponse> =
+      await formApi.get(`${API_ENDPOINTS.USER.FINDMANY}?query=${query}`, {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      });
+
+    return {
+      response: {
+        statusCode: status,
+        message: data.message,
+        data: data.data,
+      },
+    };
+  } catch (error: AxiosResponse<CommonAPIResponse> | any) {
+    return handlerError(error);
+  }
+}
+
 export const createUser = createSafeAction(CreateUserSchema, createUserHandler);
 export const confirmAccount = createSafeAction(
   TokenSchema,
@@ -164,3 +191,4 @@ export const confirmAccount = createSafeAction(
 );
 export const verifyEmail = createSafeAction(EmailSchema, verifyEmailHandler);
 export const changePass = createSafeAction(ChangePassSchema, changePassHandler);
+export const findUsers = createSafeAction(FindUsersSchema, findUsersHandler);

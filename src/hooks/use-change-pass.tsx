@@ -1,8 +1,9 @@
 import { z } from "zod";
-import { changePass, ChangePassSchema } from "@/actions/user";
-import useCommonForm from "./use-common-form";
+
+import { useCommonForm } from "@/hooks";
 import { verifyResponse } from "@/lib";
 import { PUBLIC_ROUTES } from "@/lib/constants";
+import { changePass, ChangePassSchema } from "@/actions/user";
 
 interface Props {
   token: string;

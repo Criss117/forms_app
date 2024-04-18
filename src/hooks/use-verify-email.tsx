@@ -4,7 +4,7 @@ import { EmailSchema, verifyEmail } from "@/actions/user";
 import { PUBLIC_ROUTES } from "@/lib/constants";
 import { verifyResponse } from "@/lib";
 
-import useCommonForm from "./use-common-form";
+import useCommonForm from "./utils/use-common-form";
 
 const useVerifyEmail = () => {
   const commonFormConfig = {

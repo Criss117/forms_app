@@ -7,7 +7,7 @@ import { createFolder, findFolders } from "@/actions/folder";
 import { useFolderStore } from "@/zustand";
 import { verifyResponse } from "@/lib";
 
-import { useCommonForm } from ".";
+import { useCommonForm } from "..";
 
 const commonFormConfig = {
   schema: CreateFolderSchemaClient,
@@ -18,9 +18,9 @@ const commonFormConfig = {
 
 const useFolderActions = () => {
   const { data } = useSession();
-  const { folders, setFolder, setFolders } = useFolderStore();
+  const { setFolder, setFolders } = useFolderStore();
 
-  const { error, isPending, form, setErrorHandler, push, startTransition } =
+  const { error, isPending, form, setErrorHandler, startTransition } =
     useCommonForm<typeof CreateFolderSchemaClient>(commonFormConfig);
 
   const findAllFolders = () => {
