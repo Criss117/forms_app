@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   FOLDER: {
     FIND: "/folder",
     CREATE: "/folder",
+    ADD_MEMBERS: "/folder/add-members",
   },
   FORM: {
     CREATE: "/form",

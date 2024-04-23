@@ -29,7 +29,6 @@ const useFolderActions = () => {
       const foldersLC = localStorage.getItem("folders");
 
       if (foldersLC) {
-        console.log({ foldersLC });
         return;
       }
 
@@ -61,7 +60,6 @@ const useFolderActions = () => {
         await createFolder({ name, jwtoken: data?.user?.jwt }).then(
           ({ response }) => {
             const state = verifyResponse(response);
-            console.log({ state, response });
             if (state?.statusCode === 404) {
               signOut();
               return;

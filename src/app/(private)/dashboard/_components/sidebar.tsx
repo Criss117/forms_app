@@ -1,6 +1,4 @@
 import { PropsWithChildren } from "react";
-
-import { Separator } from "@/components/ui";
 import { SideBarFolders, SideBarHeader } from ".";
 
 const SideBar = ({ children }: PropsWithChildren) => {
@@ -9,7 +7,6 @@ const SideBar = ({ children }: PropsWithChildren) => {
       <div className="flex w-full mx-2 gap-x-10">
         <aside className="w-2/12 hidden md:flex md:flex-col">
           <SideBarHeader />
-          <Separator className="bg-black my-8" />
           <SideBarFolders />
         </aside>
         <div className="w-[90%] md:w-10/12 mx-auto md:mx-0">{children}</div>

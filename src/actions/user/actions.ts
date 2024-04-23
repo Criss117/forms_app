@@ -162,8 +162,6 @@ async function changePassHandler(
 async function findUsersHandler(userQuery: FindUsersInputType) {
   const { jwtoken, query } = userQuery;
 
-  console.log({ jwtoken, query });
-
   try {
     const { data, status }: AxiosResponse<CommonAPIResponse> =
       await formApi.get(`${API_ENDPOINTS.USER.FINDMANY}?query=${query}`, {

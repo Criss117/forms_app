@@ -1,7 +1,11 @@
+import { cn } from "@/lib";
 import styles from "./spinner.module.css";
 
-const Spinner = () => {
-  return <span className={styles.loader}></span>;
-};
+interface Props {
+  className?: string;
+  loader?: "primary" | "secondary";
+}
 
-export default Spinner;
+export const Spinner = ({ className, loader = "primary" }: Props) => {
+  return <span className={cn(styles[loader], className)}></span>;
+};

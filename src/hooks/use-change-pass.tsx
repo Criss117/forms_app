@@ -35,7 +35,6 @@ const useChangePass = ({ token }: Props) => {
       startTransition(async () => {
         await changePass(values).then(({ response }) => {
           const state = verifyResponse(response);
-          console.log({ response });
           if (!state?.success) {
             setErrorHandler(state?.error || "", 6000);
             return;

@@ -8,6 +8,9 @@ export * from "./skeleton";
 export * from "./separator";
 export * from "./popover";
 export * from "./select";
+export * from "./spinner";
+export * from "./toast";
+export * from "./toaster";
+export * from "./use-toast";
 
-export { default as Spinner } from "./spinner";
 export { default as FormsAppTitle } from "./forms-app-title";

@@ -49,7 +49,6 @@ const useFormActions = () => {
             signOut();
             return;
           }
-          console.log("response", response);
           // if (state?.success) {
           //   push(PRIVATE_ROUTES.FORM_HOME + "/" + response?.data?.formId);
           // }

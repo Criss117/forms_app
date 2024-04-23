@@ -12,6 +12,7 @@ interface Props extends PropsWithChildren {
   sideOffSet?: number;
   trigger?: ReactNode;
   className?: string;
+  onClose?: () => void;
 }
 
 const CommonPopover = ({
@@ -21,6 +22,7 @@ const CommonPopover = ({
   children,
   trigger,
   className,
+  onClose,
 }: Props) => {
   const closeRef = useRef<ElementRef<"button">>(null);
 
@@ -37,6 +39,7 @@ const CommonPopover = ({
           <Button
             variant="ghost"
             className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
+            onClick={onClose}
           >
             <X className="h-4 w-4" />
           </Button>

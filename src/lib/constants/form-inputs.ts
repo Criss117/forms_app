@@ -139,6 +139,23 @@ const FIND_USERS_INPUTS = [
   },
 ];
 
+const ADD_FOLDER_MEMBERS_INPUTS = [
+  {
+    name: "userId",
+    label: "Usuario",
+    placeholder: "Cristian",
+    type: "number",
+    hidden: true,
+  },
+  {
+    name: "folderId",
+    label: "Carpeta",
+    placeholder: "Carpeta 1",
+    type: "text",
+    hidden: true,
+  },
+];
+
 export const FORM_INPUTS = {
   REGISTER_FORM_INPUTS,
   LOGIN_FORM_INPUTS,
@@ -147,4 +164,5 @@ export const FORM_INPUTS = {
   CREATE_FORM_INPUTS,
   CREATE_FOLDER_INPUTS,
   FIND_USERS_INPUTS,
+  ADD_FOLDER_MEMBERS_INPUTS,
 };

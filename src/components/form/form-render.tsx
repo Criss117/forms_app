@@ -12,6 +12,7 @@ interface Props {
   isPending: boolean;
   submitLabel?: string;
   fieldsetClass?: string;
+  formClass?: string;
   children?: React.ReactNode;
   onSubmit: (
     e?: BaseSyntheticEvent<object, any, any> | undefined
@@ -26,13 +27,14 @@ const FormRender = ({
   isPending,
   submitLabel,
   fieldsetClass,
+  formClass,
   children,
   onSubmit,
   onChange,
 }: Props) => {
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={cn(formClass)}>
         <FormError message={error} />
         <fieldset className={cn("grid grid-cols-1 gap-2", fieldsetClass)}>
           {inputs.map(({ label, placeholder, type, name, hidden }, index) => (

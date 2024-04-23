@@ -9,7 +9,7 @@ import {
 import { ActionState } from "@/lib";
 
 export type User = {
-  id: string;
+  id: number;
   name: string;
   surname: string;
   email: string;

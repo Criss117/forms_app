@@ -21,8 +21,9 @@ interface Props {
   disabled?: boolean;
   name: string;
   form: any;
-  placeholder: string;
-  label: string;
+  placeholder?: string;
+  className?: string;
+  label?: string;
   selects: select[];
 }
 
@@ -33,6 +34,7 @@ const FormSelect = ({
   label,
   placeholder,
   disabled = false,
+  className,
 }: Props) => {
   if (disabled) {
     return null;
@@ -43,8 +45,8 @@ const FormSelect = ({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className={cn(disabled && "hidden")}>
-          <FormLabel>{label}</FormLabel>
+        <FormItem className={cn(className, disabled && "hidden")}>
+          {label && <FormLabel>{label}</FormLabel>}
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>

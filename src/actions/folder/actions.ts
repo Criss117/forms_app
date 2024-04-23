@@ -7,6 +7,8 @@ import { CommonAPIResponse } from "@/lib/models";
 import { createSafeAction, formApi, handlerError, sleep } from "@/lib";
 
 import {
+  AddFolderMemberInputType,
+  AddFolderMemberReturnType,
   CreateFolderInputType,
   CreateFolderReturnType,
   FindFolderInputType,
@@ -14,8 +16,12 @@ import {
   FindFoldersInputType,
   FindFoldersReturnType,
 } from "./types";
+import {
+  addFolderMembersSchema,
+  CreateFolderSchema,
+  FindFolderSchema,
+} from "./schema";
 import { JwtSchema } from "../schemas";
-import { CreateFolderSchema, FindFolderSchema } from "./schema";
 
 async function findFoldersHandler({
   jwtoken,
@@ -112,9 +118,44 @@ export async function findFolderHandler(
   }
 }
 
+export async function addFolderMembersHandler(
+  members: AddFolderMemberInputType
+): Promise<AddFolderMemberReturnType> {
+  const { userId, folderId, permission, jwtoken } = members;
+  try {
+    const { data, status } = await formApi.post(
+      `${API_ENDPOINTS.FOLDER.ADD_MEMBERS}`,
+      {
+        userId,
+        folderId,
+        permission,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      }
+    );
+
+    return {
+      response: {
+        statusCode: status,
+        message: data.message,
+        data: data.data,
+      },
+    };
+  } catch (error: AxiosResponse<CommonAPIResponse> | any) {
+    return handlerError(error);
+  }
+}
+
 export const findFolders = createSafeAction(JwtSchema, findFoldersHandler);
 export const createFolder = createSafeAction(
   CreateFolderSchema,
   createFolderHandler
 );
 export const findFolder = createSafeAction(FindFolderSchema, findFolderHandler);
+export const addFolderMembers = createSafeAction(
+  addFolderMembersSchema,
+  addFolderMembersHandler
+);

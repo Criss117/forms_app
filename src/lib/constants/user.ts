@@ -1,0 +1,4 @@
+export enum USER_PERMISSIONS {
+  READ,
+  READ_WRITE,
+}

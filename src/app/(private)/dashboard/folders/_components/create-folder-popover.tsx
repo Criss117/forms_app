@@ -1,5 +1,4 @@
 "use client";
-import { useSession } from "next-auth/react";
 
 import { CommonPopover } from "@/components";
 import useFolderActions from "@/hooks/use-actions/use-folder-actions";

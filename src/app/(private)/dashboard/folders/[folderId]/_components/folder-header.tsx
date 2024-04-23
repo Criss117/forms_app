@@ -1,24 +1,40 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { UserRoundPlus } from "lucide-react";
 
 import { FolderComplete } from "@/actions/folder/types";
-import { Button, Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui";
 import { getCharUpperCase } from "@/lib";
 import AddMemberPopover from "./add-member-popover";
+import { useEffect, useState } from "react";
+import { useFolderStore } from "@/zustand";
 
 interface Props {
-  folder: FolderComplete | undefined;
+  folderApi: FolderComplete | undefined;
   statusCode?: number;
 }
 
-export const FolderHeader = ({ folder, statusCode }: Props) => {
-  if (!folder || statusCode === 404) {
-    signOut();
-    return null;
+export const FolderHeader = ({ folderApi, statusCode }: Props) => {
+  const { setCurrentFolder, clearCurrentFolder } = useFolderStore();
+  const [folder, setFolder] = useState<FolderComplete | undefined>(undefined);
+
+  useEffect(() => {
+    if (!folderApi || statusCode === 404) {
+      signOut();
+    }
+
+    setFolder(folderApi);
+
+    setCurrentFolder(folder);
+
+    return () => {
+      clearCurrentFolder();
+    };
+  }, []);
+
+  if (!folder) {
+    return <FolderHeaderSkeleton />;
   }
-  const { name } = folder;
 
   return (
     <header className="w-full py-5 border-b border-slate-500">
@@ -30,11 +46,19 @@ export const FolderHeader = ({ folder, statusCode }: Props) => {
               w-10 h-10 rounded-sm flex items-center 
               justify-center font-semibold text-xl"
           >
-            {getCharUpperCase(name)}
+            {getCharUpperCase(folder.name)}
           </span>
-          <h2>{name}</h2>
+          <h2>{folder.name}</h2>
         </div>
-        <AddMemberPopover />
+        {folder.owner && <AddMemberPopover />}
+        {!folder.owner && folder.ownerUser && (
+          <p className="flex flex-col">
+            <span className="font-semibold">
+              de: {folder.ownerUser.name} {folder.ownerUser.surname}
+            </span>
+            <span className="text-sm">{folder.ownerUser.email}</span>
+          </p>
+        )}
       </div>
     </header>
   );

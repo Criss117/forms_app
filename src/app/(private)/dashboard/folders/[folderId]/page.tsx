@@ -24,7 +24,10 @@ const FolderPage = async ({ params }: Props) => {
 
   return (
     <>
-      <FolderHeader folder={response?.data} statusCode={response?.statusCode} />
+      <FolderHeader
+        folderApi={response?.data}
+        statusCode={response?.statusCode}
+      />
       <FolderBody folder={response?.data} />
     </>
   );

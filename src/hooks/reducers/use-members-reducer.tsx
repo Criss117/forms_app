@@ -19,7 +19,15 @@ const useMembersReducer = () => {
   );
 
   const findUsersHandler = (query: string) => {
-    dispatch({ type: "setIsSearching" });
+    if (query.length > 3) {
+      dispatch({ type: "setIsSearching", payload: true });
+    }
+
+    if (query.length < 3) {
+      dispatch({ type: "setIsSearching", payload: false });
+      dispatch({ type: "clear" });
+    }
+
     setQuery(query);
   };
 
@@ -27,6 +35,10 @@ const useMembersReducer = () => {
     if (debouncedQuery) {
       findUsersHook(debouncedQuery);
     }
+
+    return () => {
+      dispatch({ type: "clear" });
+    };
   }, [debouncedQuery]);
 
   const findUsersHook = (query: string) => {
@@ -48,7 +60,6 @@ const useMembersReducer = () => {
 
     findUsers(findUsersQuery)
       .then(({ response }) => {
-        console.log({ response });
         const state = verifyResponse(response);
         if (state?.statusCode === 404) {
           signOut();
@@ -65,10 +76,15 @@ const useMembersReducer = () => {
       });
   };
 
+  const clearState = () => {
+    dispatch({ type: "clear" });
+  };
+
   return {
     members: membersState.members,
     isSearching: membersState.isSearching,
     findUsersHandler,
+    clearState,
   };
 };
 
