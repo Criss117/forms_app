@@ -16,23 +16,20 @@ interface Props {
 
 export const FolderHeader = ({ folderApi, statusCode }: Props) => {
   const { setCurrentFolder, clearCurrentFolder } = useFolderStore();
-  const [folder, setFolder] = useState<FolderComplete | undefined>(undefined);
 
   useEffect(() => {
     if (!folderApi || statusCode === 404) {
       signOut();
     }
 
-    setFolder(folderApi);
-
-    setCurrentFolder(folder);
+    setCurrentFolder(folderApi);
 
     return () => {
       clearCurrentFolder();
     };
   }, []);
 
-  if (!folder) {
+  if (!folderApi) {
     return <FolderHeaderSkeleton />;
   }
 
@@ -46,17 +43,17 @@ export const FolderHeader = ({ folderApi, statusCode }: Props) => {
               w-10 h-10 rounded-sm flex items-center 
               justify-center font-semibold text-xl"
           >
-            {getCharUpperCase(folder.name)}
+            {getCharUpperCase(folderApi.name)}
           </span>
-          <h2>{folder.name}</h2>
+          <h2>{folderApi.name}</h2>
         </div>
-        {folder.owner && <AddMemberPopover />}
-        {!folder.owner && folder.ownerUser && (
+        {folderApi.owner && <AddMemberPopover />}
+        {!folderApi.owner && folderApi.ownerUser && (
           <p className="flex flex-col">
             <span className="font-semibold">
-              de: {folder.ownerUser.name} {folder.ownerUser.surname}
+              de: {folderApi.ownerUser.name} {folderApi.ownerUser.surname}
             </span>
-            <span className="text-sm">{folder.ownerUser.email}</span>
+            <span className="text-sm">{folderApi.ownerUser.email}</span>
           </p>
         )}
       </div>

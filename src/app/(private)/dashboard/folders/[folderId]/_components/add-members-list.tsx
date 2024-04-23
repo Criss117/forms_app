@@ -48,16 +48,16 @@ export const AddMembersList = ({ member }: Props) => {
         >
           <fieldset className="flex justify-center items-center gap-x-2">
             <FormSelect
-              name="permissions"
+              name="permission"
               form={form}
               placeholder="Escritura / Lectura"
               className="w-44"
               selects={[
+                { name: "Lectura", value: `${USER_PERMISSIONS.READ}` },
                 {
                   name: "Escritura / Lectura",
                   value: `${USER_PERMISSIONS.READ_WRITE}`,
                 },
-                { name: "Lectura", value: `${USER_PERMISSIONS.READ}` },
               ]}
             />
             <Button className="h-8" type="submit" disabled={isPending}>

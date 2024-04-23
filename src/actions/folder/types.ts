@@ -24,14 +24,17 @@ export type FindALlFolders = {
   sharedFolders: Array<Folder>;
 };
 
+type UserFolder = {
+  id: number;
+  name: string;
+  surname: string;
+  email: string;
+};
+
 export type FolderComplete = Folder & {
   forms: Array<FormHeader>;
-  ownerUser?: {
-    id: number;
-    name: string;
-    surname: string;
-    email: string;
-  };
+  ownerUser?: UserFolder;
+  members?: Array<UserFolder>;
 };
 
 export type FindFoldersInputType = z.infer<typeof JwtSchema>;

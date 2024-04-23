@@ -12,5 +12,7 @@ export * from "./spinner";
 export * from "./toast";
 export * from "./toaster";
 export * from "./use-toast";
+export * from "./avatar";
+export * from "./tooltip";
 
 export { default as FormsAppTitle } from "./forms-app-title";

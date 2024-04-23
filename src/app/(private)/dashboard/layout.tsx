@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 
 import { useFolderStore } from "@/zustand";
 import { useFolderActions } from "@/hooks";
+import { TooltipProvider } from "@/components/ui";
 
 const DashboardLayout = ({ children }: PropsWithChildren) => {
   const { data } = useSession();
@@ -17,7 +18,7 @@ const DashboardLayout = ({ children }: PropsWithChildren) => {
     };
   }, [data]);
 
-  return <>{children}</>;
+  return <TooltipProvider delayDuration={200}>{children}</TooltipProvider>;
 };
 
 export default DashboardLayout;

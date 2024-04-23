@@ -3,7 +3,8 @@ import { getServerSession } from "next-auth";
 import { findFolderHandler } from "@/actions/folder";
 import authConfig from "@/lib/auth/auth.config";
 
-import { FolderBody, FolderHeader } from "./_components";
+import { FolderBody, FolderHeader, Members } from "./_components";
+
 interface Props {
   params: {
     folderId: string;
@@ -28,6 +29,7 @@ const FolderPage = async ({ params }: Props) => {
         folderApi={response?.data}
         statusCode={response?.statusCode}
       />
+      <Members />
       <FolderBody folder={response?.data} />
     </>
   );

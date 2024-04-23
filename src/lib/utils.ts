@@ -120,3 +120,7 @@ export function handlerError(error: AxiosResponse<CommonAPIResponse> | any) {
     },
   };
 }
+
+export function userInitials(name: string, surname: string) {
+  return name[0] + surname[0];
+}
