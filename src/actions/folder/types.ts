@@ -8,6 +8,7 @@ import {
 } from "@/actions/folder/schema";
 import { ActionState } from "@/lib";
 import { FormHeader } from "@/actions/form";
+import { USER_PERMISSIONS } from "@/lib/constants";
 
 export type Folder = {
   id: string;
@@ -17,6 +18,7 @@ export type Folder = {
   active: boolean;
   formCount: number;
   owner: boolean;
+  permission: USER_PERMISSIONS;
 };
 
 export type FindALlFolders = {

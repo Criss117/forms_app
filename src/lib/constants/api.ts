@@ -16,4 +16,7 @@ export const API_ENDPOINTS = {
   FORM: {
     CREATE: "/form",
   },
+  TYPES: {
+    FIND: "/type",
+  },
 };

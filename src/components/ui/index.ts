@@ -14,5 +14,7 @@ export * from "./toaster";
 export * from "./use-toast";
 export * from "./avatar";
 export * from "./tooltip";
+export * from "./sheet";
 
 export { default as FormsAppTitle } from "./forms-app-title";
+export { default as UserAvatar } from "./user-avatar";

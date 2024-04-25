@@ -102,10 +102,6 @@ export function formatDate(isoDateString: string) {
   return date.toLocaleString("es-ES", options);
 }
 
-export function getCharUpperCase(string: string, index: number = 0) {
-  return string.charAt(index).toUpperCase();
-}
-
 export function handlerError(error: AxiosResponse<CommonAPIResponse> | any) {
   const {
     response: { data },
@@ -121,6 +117,8 @@ export function handlerError(error: AxiosResponse<CommonAPIResponse> | any) {
   };
 }
 
-export function userInitials(name: string, surname: string) {
-  return name[0] + surname[0];
+export function firtsLetterUppercase(args: Array<string>) {
+  return args.map((item) => {
+    return item.charAt(0).toUpperCase();
+  });
 }

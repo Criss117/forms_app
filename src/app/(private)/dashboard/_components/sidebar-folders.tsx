@@ -18,15 +18,17 @@ const SideBarFolders = () => {
           ))}
         </ul>
       </div>
-      <div className="mt-8 border-black">
-        <Separator className="bg-black my-4" />
-        <p className="font-bold">Carpetas Compartidas</p>
-        <ul>
-          {sharedFolders.map(({ id, name }) => (
-            <FoldersDetails key={id} id={id} name={name} />
-          ))}
-        </ul>
-      </div>
+      {sharedFolders.length > 0 && (
+        <div className="mt-8 border-black">
+          <Separator className="bg-black my-4" />
+          <p className="font-bold">Carpetas Compartidas</p>
+          <ul>
+            {sharedFolders.map(({ id, name }) => (
+              <FoldersDetails key={id} id={id} name={name} />
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 };

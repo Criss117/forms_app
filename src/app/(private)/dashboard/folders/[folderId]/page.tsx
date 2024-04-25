@@ -14,6 +14,7 @@ interface Props {
 const FolderPage = async ({ params }: Props) => {
   const { folderId } = params;
   const session = await getServerSession(authConfig);
+
   if (!session) {
     return null;
   }

@@ -2,7 +2,7 @@
 
 import { AxiosResponse } from "axios";
 
-import { createSafeAction, formApi } from "@/lib";
+import { createSafeAction, formApi, handlerError } from "@/lib";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
 
@@ -44,18 +44,7 @@ async function createFormHandler(
       },
     };
   } catch (error: AxiosResponse<CommonAPIResponse> | any) {
-    const {
-      response: { data },
-    } = error;
-
-    return {
-      response: {
-        statusCode: error.response.status,
-        message: data.message,
-        errorCode: data.errorCode,
-        error: data.error,
-      },
-    };
+    return handlerError(error);
   }
 }
 

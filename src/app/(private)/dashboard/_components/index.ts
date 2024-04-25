@@ -6,3 +6,4 @@ export { default as FoldersDetails } from "./folders-details";
 export { default as CreateFormPopover } from "./create-form-popover";
 
 export * from "./folders-details";
+export * from "./user-sheet";

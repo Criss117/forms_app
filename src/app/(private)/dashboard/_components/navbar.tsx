@@ -1,9 +1,11 @@
 "use client";
+import { useSession } from "next-auth/react";
+
 import { NavMenu } from "@/components";
 import { FormsAppTitle } from "@/components/ui";
 import { PRIVATE_ROUTES } from "@/lib/constants";
-import { signOut, useSession } from "next-auth/react";
-import CreateFormPopover from "./create-form-popover";
+
+import { UserSheet, CreateFormPopover, UserSheetSkeleton } from ".";
 
 const NavBar = () => {
   const { data, status } = useSession();
@@ -15,9 +17,12 @@ const NavBar = () => {
         <NavMenu />
         <CreateFormPopover site="sm" />
       </div>
+
       <div className="flex items-center">
-        {status === "authenticated" && (
-          <button onClick={() => signOut()}>{data?.user?.name}</button>
+        {status === "authenticated" ? (
+          <UserSheet user={data?.user} />
+        ) : (
+          <UserSheetSkeleton />
         )}
       </div>
     </header>

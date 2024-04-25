@@ -1,13 +1,12 @@
 "use client";
 
 import {
-  Avatar,
-  AvatarFallback,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  UserAvatar,
 } from "@/components/ui";
-import { userInitials } from "@/lib";
+import { firtsLetterUppercase } from "@/lib";
 import { useFolderStore } from "@/zustand";
 
 const Members = () => {
@@ -21,14 +20,10 @@ const Members = () => {
           currentFolder.members.map((member) => (
             <li key={member.id}>
               <Tooltip>
-                <TooltipTrigger>
-                  <Avatar>
-                    <AvatarFallback className="bg-lightaccent-100">
-                      <p className="font-bold">
-                        {userInitials(member.name, member.surname)}
-                      </p>
-                    </AvatarFallback>
-                  </Avatar>
+                <TooltipTrigger className="cursor-default">
+                  <UserAvatar>
+                    {firtsLetterUppercase([member.name, member.surname])}
+                  </UserAvatar>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="font-semibold">
