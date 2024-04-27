@@ -8,6 +8,7 @@ import { FormRender, FormSelect } from "@/components/form";
 import { useDimensions, useFormActions } from "@/hooks";
 import { FORM_INPUTS } from "@/lib/constants";
 import { useFolderStore } from "@/zustand";
+import { Button } from "@/components/ui";
 
 interface Props {
   site: "sm" | "complete";
@@ -20,22 +21,28 @@ interface Select {
 
 const TriggerSm = () => {
   return (
-    <div className="bg-lightaccent-100 py-2 px-5 rounded-md hover:bg-lightaccent-200 transition">
-      <span className="hidden md:block text-white text-sm">Crear</span>
-      <Plus className="md:hidden text-white text-sm" />
-    </div>
+    <Button
+      className="bg-lightaccent-100 hover:bg-lightaccent-200 transition"
+      asChild
+    >
+      <p>
+        <span className="hidden md:block text-white text-sm">Crear</span>
+        <Plus className="md:hidden text-white text-sm" />
+      </p>
+    </Button>
   );
 };
 
 const TriggerComplete = () => {
   return (
-    <div
+    <Button
+      asChild
       className="
         bg-lightaccent-100 rounded-md hover:bg-lightaccent-100/80 
         transition mx-auto w-[100%] sm:w-[80%] md:w-xs h-32 flex items-center justify-center"
     >
       <p className="text-white text-xl font-semibold">Crear Encuesta</p>
-    </div>
+    </Button>
   );
 };
 

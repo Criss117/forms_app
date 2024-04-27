@@ -10,6 +10,7 @@ import { FolderComplete } from "@/actions/folder/types";
 import { USER_PERMISSIONS_LIST } from "@/lib/constants";
 
 import { AddMemberPopover } from ".";
+
 interface Props {
   folderApi: FolderComplete | undefined;
   statusCode?: number;

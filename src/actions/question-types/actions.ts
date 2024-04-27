@@ -1,21 +1,30 @@
-"use client";
+"use server";
 
-import { createSafeAction, formApi, handlerError } from "@/lib";
-import { FindQuestionInputType } from "./types";
-import { API_ENDPOINTS } from "@/lib/constants";
 import { AxiosResponse } from "axios";
+
+import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
+import { createSafeAction, formApi, handlerError } from "@/lib";
+
+import {
+  FindQuestionInputType,
+  FindQuestionReturnTypes,
+  QuestionType,
+} from "./types";
 import { JwtSchema } from "../schemas/index";
 
-export async function FindQuestionTypesHandle(jwt: FindQuestionInputType) {
+export async function FindQuestionTypesHandle(
+  jwt: FindQuestionInputType
+): Promise<FindQuestionReturnTypes> {
   const { jwtoken } = jwt;
 
   try {
-    const { data, status } = await formApi.get(API_ENDPOINTS.TYPES.FIND, {
-      headers: {
-        Authorization: `Bearer ${jwtoken}`,
-      },
-    });
+    const { data, status }: AxiosResponse<CommonAPIResponse<QuestionType[]>> =
+      await formApi.get(API_ENDPOINTS.TYPES.FIND, {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      });
 
     if (status !== 200) {
       return {

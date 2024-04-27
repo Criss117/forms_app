@@ -4,3 +4,4 @@ export * from "./form-inputs";
 export * from "./status-code";
 export * from "./routes";
 export * from "./user";
+export * from "./local-storage";

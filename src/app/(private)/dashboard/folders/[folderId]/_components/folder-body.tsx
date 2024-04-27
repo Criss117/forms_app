@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import { FolderComplete } from "@/actions/folder/types";
 import { USER_PERMISSIONS } from "@/lib/constants";
-import { FormCard, FormCardSkeleton } from "./form-card";
+
+import { FormCard, FormCardSkeleton } from ".";
 import { CreateFormPopover } from "../../../_components";
 
 interface Props {
@@ -34,16 +35,11 @@ export const FolderBody = ({ folder }: Props) => {
       <h3 className="text-xl font-semibold mb-5">Encuestas</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-5">
         {hasPermission && <CreateFormPopover site="complete" />}
-        {forms.length === 0 && forms === undefined ? (
+        {forms.length === 0 && forms === undefined && (
           <>
             <FormCardSkeleton />
             <FormCardSkeleton />
           </>
-        ) : (
-          <p>
-            No hay encuestas
-            {hasPermission && ", crea una"}
-          </p>
         )}
         {forms.length > 0 &&
           forms.map((form) => <FormCard key={form.id} form={form} />)}

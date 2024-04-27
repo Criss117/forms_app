@@ -1,10 +1,9 @@
-"use client";
-import { Button } from "@/components/ui";
+import { EditorModal } from ".";
 
 const EditorFooter = () => {
   return (
-    <footer>
-      <Button>Guardar</Button>
+    <footer className="flex justify-end">
+      <EditorModal />
     </footer>
   );
 };

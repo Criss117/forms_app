@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL || "http://localhost:3000/api";
+const apiUrl = process.env.API_URL || "http://localhost:8080/api";
 
 if (!apiUrl) {
   throw new Error("API_URL is not defined");

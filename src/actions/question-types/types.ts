@@ -10,11 +10,11 @@ export interface QuestionType {
   createdAt: Date;
   updatedAt: Date;
   active: number;
-  subTypes?: QuestionType[];
+  subTypes: QuestionType[];
 }
 
 export type FindQuestionInputType = z.infer<typeof JwtSchema>;
 export type FindQuestionReturnTypes = ActionState<
   FindQuestionInputType,
-  QuestionType
+  Array<QuestionType>
 >;

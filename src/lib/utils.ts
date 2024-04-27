@@ -1,11 +1,9 @@
+import { AxiosResponse } from "axios";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { CommonAPIResponse } from "./models";
 import { PRIVATE_ROUTES, STATUS_CODE } from "@/lib/constants";
-import { getServerSession } from "next-auth";
-import authConfig from "./auth/auth.config";
-import { AxiosResponse } from "axios";
 
 interface IError {
   error: string;

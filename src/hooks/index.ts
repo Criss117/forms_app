@@ -9,5 +9,6 @@ export { default as useCommonForm } from "./utils/use-common-form";
 export { default as useFolderActions } from "./use-actions/use-folder-actions";
 export { default as useFormActions } from "./use-actions/use-form-actions";
 export { default as useMemberActions } from "./use-actions/use-member-actions";
+export { default as useQuestionTypes } from "./use-actions/use-question-type";
 
 export * from "./util-hooks";
