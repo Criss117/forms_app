@@ -1,9 +1,15 @@
-import { getServerSession } from "next-auth";
+"use client";
+import { useEffect } from "react";
 
-import { findFolderHandler } from "@/actions/folder";
-import authConfig from "@/lib/auth/auth.config";
-
-import { FolderBody, FolderHeader, Members } from "./_components";
+import { useFolderActions } from "@/hooks";
+import { useFolderStore } from "@/zustand";
+import {
+  FolderBody,
+  FolderHeader,
+  FolderHeaderSkeleton,
+  Members,
+} from "./_components";
+import { useSession } from "next-auth/react";
 
 interface Props {
   params: {
@@ -11,27 +17,26 @@ interface Props {
   };
 }
 
-const FolderPage = async ({ params }: Props) => {
+const FolderPage = ({ params }: Props) => {
+  const { data } = useSession();
+  const { isPending, findOneFolder } = useFolderActions();
+  const { clearCurrentFolder } = useFolderStore();
+
   const { folderId } = params;
-  const session = await getServerSession(authConfig);
 
-  if (!session) {
-    return null;
-  }
+  useEffect(() => {
+    findOneFolder(folderId);
 
-  const { response } = await findFolderHandler({
-    folderId,
-    jwtoken: session?.user?.jwt,
-  });
+    return () => {
+      clearCurrentFolder();
+    };
+  }, [folderId, data]);
 
   return (
     <>
-      <FolderHeader
-        folderApi={response?.data}
-        statusCode={response?.statusCode}
-      />
+      <FolderHeader isPending={isPending} />
       <Members />
-      <FolderBody folder={response?.data} />
+      <FolderBody isPending={isPending} />
     </>
   );
 };

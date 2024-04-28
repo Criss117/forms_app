@@ -1,9 +1,10 @@
+"use client";
 import { z } from "zod";
 
 import { signOut, useSession } from "next-auth/react";
 
 import { CreateFolderSchemaClient } from "@/actions/folder/schema";
-import { createFolder, findFolders } from "@/actions/folder";
+import { createFolder, findFolder, findFolders } from "@/actions/folder";
 import { useFolderStore } from "@/zustand";
 import { verifyResponse } from "@/lib";
 
@@ -18,29 +19,50 @@ const commonFormConfig = {
 
 const useFolderActions = () => {
   const { data } = useSession();
-  const { setFolder, setFolders } = useFolderStore();
+  const { setFolder, setFolders, setCurrentFolder } = useFolderStore();
 
   const { error, isPending, form, setErrorHandler, startTransition } =
     useCommonForm<typeof CreateFolderSchemaClient>(commonFormConfig);
 
-  const findAllFolders = () => {
-    if (!data?.user.jwt) return;
+  const findOneFolder = (folderId: string) => {
+    setErrorHandler("");
     startTransition(async () => {
-      const foldersLC = localStorage.getItem("folders");
+      if (!data?.user.jwt) return;
 
-      if (foldersLC) {
-        return;
-      }
+      await findFolder({ folderId, jwtoken: data?.user?.jwt }).then(
+        ({ response }) => {
+          const state = verifyResponse(response);
 
+          if (state?.statusCode === 404) {
+            signOut();
+            return;
+          }
+
+          if (state?.success && response?.data) {
+            setCurrentFolder(response?.data);
+          }
+        }
+      );
+    });
+  };
+
+  const findAllFolders = () => {
+    if (!data?.user.jwt) {
+      return;
+    }
+
+    setErrorHandler("");
+    startTransition(async () => {
       await findFolders({ jwtoken: data?.user?.jwt }).then(({ response }) => {
         const state = verifyResponse(response);
+
         if (state?.statusCode === 404) {
           signOut();
           return;
         }
+
         if (state?.success && response?.data) {
           setFolders(response?.data);
-          localStorage.setItem("folders", JSON.stringify(response?.data));
         }
       });
     });
@@ -80,6 +102,7 @@ const useFolderActions = () => {
     form,
     error,
     isPending,
+    findOneFolder,
     findAllFolders,
     setErrorHandler,
     createFolderSubmit,

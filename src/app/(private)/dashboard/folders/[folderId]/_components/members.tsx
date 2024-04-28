@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
   UserAvatar,
 } from "@/components/ui";
-import { firtsLetterUppercase } from "@/lib";
+import { firstLetterUppercase } from "@/lib";
 import { useFolderStore } from "@/zustand";
 
 const Members = () => {
@@ -22,7 +22,7 @@ const Members = () => {
               <Tooltip>
                 <TooltipTrigger className="cursor-default">
                   <UserAvatar>
-                    {firtsLetterUppercase([member.name, member.surname])}
+                    {firstLetterUppercase(member.name, member.surname)}
                   </UserAvatar>
                 </TooltipTrigger>
                 <TooltipContent>

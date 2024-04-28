@@ -10,7 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { firtsLetterUppercase } from "@/lib";
+import { firstLetterUppercase } from "@/lib";
 import { signOut } from "next-auth/react";
 
 interface Props {
@@ -30,9 +30,7 @@ export const UserSheet = ({ user }: Props) => {
   return (
     <Sheet>
       <SheetTrigger>
-        <UserAvatar>
-          {firtsLetterUppercase([user.name, user.surname])}
-        </UserAvatar>
+        <UserAvatar>{firstLetterUppercase(user.name, user.surname)}</UserAvatar>
       </SheetTrigger>
       <SheetContent className="flex flex-col justify-between">
         <SheetHeader>

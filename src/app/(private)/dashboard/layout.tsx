@@ -8,11 +8,13 @@ import { TooltipProvider } from "@/components/ui";
 
 const DashboardLayout = ({ children }: PropsWithChildren) => {
   const { data } = useSession();
+
   const { clearFolders } = useFolderStore();
   const { findAllFolders } = useFolderActions();
 
   useEffect(() => {
     findAllFolders();
+
     return () => {
       clearFolders();
     };

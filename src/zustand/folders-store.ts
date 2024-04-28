@@ -37,7 +37,6 @@ const useFolderStore = create<FolderStore>((set, get) => {
       });
     },
     clearFolders: () => {
-      localStorage.removeItem("folders");
       set({ folders: [] });
     },
     clearCurrentFolder: () => {

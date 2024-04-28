@@ -22,10 +22,6 @@ const EditorModal = () => {
     useQuestionTypesStore();
 
   useEffect(() => {
-    console.log({ isPending });
-  }, [isPending]);
-
-  useEffect(() => {
     if (!isOpen) {
       clearTypeSelected();
       return;

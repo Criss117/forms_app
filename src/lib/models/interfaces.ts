@@ -5,3 +5,7 @@ export interface CommonAPIResponse<T = any> {
   errorCode?: number;
   data?: T;
 }
+
+export interface PropsWithIsPending {
+  isPending: boolean;
+}

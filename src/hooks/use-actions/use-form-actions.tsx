@@ -8,6 +8,7 @@ import { CreateFormSchemaClient } from "@/actions/form/schema";
 import { verifyResponse } from "@/lib";
 
 import { useCommonForm } from "..";
+import { PRIVATE_ROUTES } from "@/lib/constants";
 const useFormActions = () => {
   const { data } = useSession();
 
@@ -26,7 +27,6 @@ const useFormActions = () => {
   const createFormSubmit = form.handleSubmit(
     (values: z.infer<typeof CreateFormSchemaClient>) => {
       if (data?.user.jwt === undefined) {
-        signOut();
         return;
       }
 
@@ -48,9 +48,9 @@ const useFormActions = () => {
             signOut();
             return;
           }
-          // if (state?.success) {
-          //   push(PRIVATE_ROUTES.FORM_HOME + "/" + response?.data?.formId);
-          // }
+          if (state?.success) {
+            push(PRIVATE_ROUTES.FORM_HOME + "/" + response?.data?.formId);
+          }
         });
       });
     }

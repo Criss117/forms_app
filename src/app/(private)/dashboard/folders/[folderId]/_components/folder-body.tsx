@@ -2,47 +2,51 @@
 
 import { useEffect, useState } from "react";
 
-import { FolderComplete } from "@/actions/folder/types";
 import { USER_PERMISSIONS } from "@/lib/constants";
+import { useFolderStore } from "@/zustand";
 
 import { FormCard, FormCardSkeleton } from ".";
 import { CreateFormPopover } from "../../../_components";
+import { PropsWithIsPending } from "@/lib/models";
 
-interface Props {
-  folder: FolderComplete | undefined;
-}
-
-export const FolderBody = ({ folder }: Props) => {
+export const FolderBody = ({ isPending }: PropsWithIsPending) => {
   const [hasPermission, setHasPermission] = useState(false);
+  const { currentFolder } = useFolderStore();
 
   useEffect(() => {
-    if (!folder) {
+    if (!currentFolder) {
       return;
     }
 
-    if (folder.permission === USER_PERMISSIONS.READ_WRITE || folder.owner) {
+    if (
+      currentFolder.permission === USER_PERMISSIONS.READ_WRITE ||
+      currentFolder.owner
+    ) {
       setHasPermission(true);
     }
-  }, [folder]);
+  }, [currentFolder]);
 
-  if (!folder) {
-    return null;
+  if (isPending || !currentFolder) {
+    return <FolderBodySkeleton />;
   }
-  const { forms } = folder;
 
   return (
     <section className="mt-5">
       <h3 className="text-xl font-semibold mb-5">Encuestas</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-5">
         {hasPermission && <CreateFormPopover site="complete" />}
-        {forms.length === 0 && forms === undefined && (
-          <>
-            <FormCardSkeleton />
-            <FormCardSkeleton />
-          </>
-        )}
-        {forms.length > 0 &&
-          forms.map((form) => <FormCard key={form.id} form={form} />)}
+        {currentFolder?.forms.length === 0 &&
+          currentFolder?.forms === undefined && (
+            <>
+              <FormCardSkeleton />
+              <FormCardSkeleton />
+            </>
+          )}
+        {currentFolder &&
+          currentFolder?.forms.length > 0 &&
+          currentFolder?.forms.map((form) => (
+            <FormCard key={form.id} form={form} />
+          ))}
       </div>
     </section>
   );

@@ -115,8 +115,12 @@ export function handlerError(error: AxiosResponse<CommonAPIResponse> | any) {
   };
 }
 
-export function firtsLetterUppercase(args: Array<string>) {
+export function firstLetterUppercase(...args: Array<string>) {
   return args.map((item) => {
-    return item.charAt(0).toUpperCase();
+    if (typeof item === "string" && item.length > 0) {
+      return item.charAt(0).toUpperCase();
+    } else {
+      return ""; // O podrías lanzar un error o manejarlo de alguna otra manera según tus necesidades
+    }
   });
 }
