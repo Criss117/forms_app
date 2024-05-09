@@ -2,16 +2,28 @@
 
 import { useEffect, useReducer, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { useDebounce } from "@uidotdev/usehooks";
-import { membersInitalState, membersReducer } from "./member-reducer";
-import { findUsers } from "@/actions/user";
+
 import { verifyResponse } from "@/lib";
+import { findUsers } from "@/actions/user";
+import { useDebounce } from "@uidotdev/usehooks";
+
+import { membersInitalState, membersReducer } from "./member-reducer";
 
 const useMembersReducer = () => {
   const { data } = useSession();
 
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 600);
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      findUsersHook(debouncedQuery);
+    }
+
+    return () => {
+      dispatch({ type: "clear" });
+    };
+  }, [debouncedQuery]);
 
   const [membersState, dispatch] = useReducer(
     membersReducer,
@@ -30,16 +42,6 @@ const useMembersReducer = () => {
 
     setQuery(query);
   };
-
-  useEffect(() => {
-    if (debouncedQuery) {
-      findUsersHook(debouncedQuery);
-    }
-
-    return () => {
-      dispatch({ type: "clear" });
-    };
-  }, [debouncedQuery]);
 
   const findUsersHook = (query: string) => {
     if (query.length < 3) {

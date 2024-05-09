@@ -4,6 +4,7 @@ export type MembersReducerActions =
   | { type: "setMembers"; payload: User[] }
   | { type: "setIsSearching"; payload?: boolean }
   | { type: "clear" };
+
 export type MembersState = { members: Array<User>; isSearching: boolean };
 
 export const membersInitalState: MembersState = {

@@ -81,9 +81,9 @@ const useMemberActions = () => {
     isPending,
     isSearching,
     onSubmit,
+    clearState,
     setErrorHandler,
     findUsersHandler,
-    clearState,
   };
 };
 

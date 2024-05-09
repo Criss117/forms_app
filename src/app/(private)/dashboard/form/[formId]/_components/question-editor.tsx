@@ -22,49 +22,13 @@ import {
   MULTIPLE_CHOISE_LIMIT,
   MultipleChoiceInput,
 } from "@/lib/constants";
+import { useMultchReducer } from "@/hooks/reducers";
 
 const QuestionEditor = () => {
   const { MULTIPLE_CHOICE_INPUTS } = FORM_INPUTS;
 
   const { error, form, isPending, createQuestionSubmit } = useQuestionEditor();
-  const { subtypeSelected, clearState } = useQuestionEditorStore();
-
-  const [answers, setAnswers] = useState(() => MULTIPLE_CHOICE_INPUTS);
-
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
-  const hiddenAnswer = (answerId: number) => {
-    if (isPending) return;
-    if (answers.length < 2) return;
-
-    setAnswers(answers.filter((input) => input.id !== answerId));
-  };
-
-  const addAnswer = () => {
-    if (isPending) return;
-    if (answers.length >= MULTIPLE_CHOISE_LIMIT) return;
-
-    let index = -1;
-
-    const currentIndex = answers.map((input) => input.id);
-
-    for (let i = 0; i < answers.length; i++) {
-      if (currentIndex.includes(index)) {
-        index = index - 1;
-      }
-    }
-
-    const newAnswer: MultipleChoiceInput = {
-      id: index,
-      name: `answ${Math.abs(index)}` as MultipleChoiceInput["name"],
-      placeholder: "Respuesta",
-      type: "text",
-    };
-
-    setAnswers([...answers, newAnswer]);
-  };
+  const { answers, addAnswer, removeAnswer } = useMultchReducer();
 
   return (
     <Form {...form}>
@@ -102,7 +66,7 @@ const QuestionEditor = () => {
                   {answers.length > 1 && (
                     <Button
                       onClick={() => {
-                        hiddenAnswer(input.id);
+                        removeAnswer(input.id);
                       }}
                       type="button"
                       className="h-8 w-20 rounded-full absolute -right-24"
