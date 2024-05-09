@@ -16,9 +16,11 @@ interface FormInput {
   hidden?: boolean;
 }
 
-interface FormSelect {
-  label: string;
-  value: string;
+export interface MultipleChoiceInput {
+  id: number;
+  name: "answ1" | "answ2" | "answ3" | "answ4" | "answ5";
+  placeholder: "Respuesta";
+  type: "text";
 }
 
 const REGISTER_FORM_INPUTS: FormInput[] = [
@@ -156,6 +158,21 @@ const ADD_FOLDER_MEMBERS_INPUTS = [
   },
 ];
 
+const MULTIPLE_CHOICE_INPUTS: MultipleChoiceInput[] = [
+  {
+    id: -1,
+    name: "answ1",
+    placeholder: "Respuesta",
+    type: "text",
+  },
+  {
+    id: -2,
+    name: "answ2",
+    placeholder: "Respuesta",
+    type: "text",
+  },
+];
+
 export const FORM_INPUTS = {
   REGISTER_FORM_INPUTS,
   LOGIN_FORM_INPUTS,
@@ -165,4 +182,5 @@ export const FORM_INPUTS = {
   CREATE_FOLDER_INPUTS,
   FIND_USERS_INPUTS,
   ADD_FOLDER_MEMBERS_INPUTS,
+  MULTIPLE_CHOICE_INPUTS,
 };

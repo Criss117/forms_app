@@ -5,21 +5,30 @@ import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui";
 import { useQuestionTypes } from "@/hooks";
+import { useQuestionEditorStore, useQuestionTypesStore } from "@/zustand";
 
 import { EditorMenu, EditorMenuSkeleton } from ".";
-import { useQuestionTypesStore } from "@/zustand";
 
 const EditorModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isPending, fetchQuestionTypes } = useQuestionTypes();
+
+  const { isSubtypeSelected, clearState: clearEditorState } =
+    useQuestionEditorStore();
+
   const { typeSelected, clearTypeSelected, clearState } =
     useQuestionTypesStore();
+
+  const backButton = () => {
+    clearEditorState();
+  };
 
   useEffect(() => {
     if (!isOpen) {
@@ -31,6 +40,7 @@ const EditorModal = () => {
 
     return () => {
       clearState();
+      clearEditorState();
     };
   }, [isOpen]);
 
@@ -49,6 +59,9 @@ const EditorModal = () => {
           </DialogTitle>
         </DialogHeader>
         {isPending ? <EditorMenuSkeleton /> : <EditorMenu />}
+        <DialogFooter>
+          {isSubtypeSelected && <Button onClick={backButton}>Atras</Button>}
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

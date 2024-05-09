@@ -1,7 +1,7 @@
 "use client";
 import { UserRoundPlus } from "lucide-react";
 
-import { Input } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
 import { useMemberActions } from "@/hooks";
 import { CommonPopover } from "@/components";
 import { FORM_INPUTS } from "@/lib/constants";
@@ -10,10 +10,19 @@ import { AddMembersList, AddMembersListSkeleton } from ".";
 
 const Trigger = () => {
   return (
-    <div className="gap-x-2 flex bg-white px-3 py-2 rounded-lg border text-sm font-semibold items-center hover:opacity-80">
-      <UserRoundPlus />
-      Agregar Miembro
-    </div>
+    <Button
+      className="
+        gap-x-2 flex bg-white 
+        px-3 py-2 rounded-lg border 
+        text-sm font-semibold items-center 
+        hover:opacity-80 hover:bg-white"
+      asChild
+    >
+      <p>
+        <UserRoundPlus className="text-black" />
+        <span className="text-black">Agregar Miembro</span>
+      </p>
+    </Button>
   );
 };
 

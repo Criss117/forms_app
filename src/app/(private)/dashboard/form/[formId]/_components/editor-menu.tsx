@@ -1,13 +1,16 @@
 "use client";
+import { CircleHelp } from "lucide-react";
+
 import {
   Button,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui";
-import { useQuestionTypesStore } from "@/zustand";
+import { useQuestionEditorStore, useQuestionTypesStore } from "@/zustand";
 import { QuestionType } from "@/actions/question-types/types";
-import { CircleHelp } from "lucide-react";
+
+import { QuestionEditor } from ".";
 
 interface Props {
   type: QuestionType | null;
@@ -34,8 +37,9 @@ const EditorButton = ({ type, onClick }: Props) => {
   );
 };
 
-const EditorMenu = () => {
+const SelectTypeMenu = () => {
   const { questionTypes, typeSelected, selectType } = useQuestionTypesStore();
+  const { setSubtypeSelected } = useQuestionEditorStore();
 
   return (
     <div className="grid grid-cols-2 gap-x-10">
@@ -52,13 +56,19 @@ const EditorMenu = () => {
         {typeSelected?.subTypes.map((type) => (
           <EditorButton
             type={type}
-            onClick={() => console.log(type)}
+            onClick={() => setSubtypeSelected(type)}
             key={type.id}
           />
         ))}
       </section>
     </div>
   );
+};
+
+const EditorMenu = () => {
+  const { subtypeSelected } = useQuestionEditorStore();
+
+  return <>{subtypeSelected ? <QuestionEditor /> : <SelectTypeMenu />}</>;
 };
 
 export default EditorMenu;

@@ -16,6 +16,7 @@ export * from "./avatar";
 export * from "./tooltip";
 export * from "./sheet";
 export * from "./dialog";
+export * from "./textarea";
 
 export { default as FormsAppTitle } from "./forms-app-title";
 export { default as UserAvatar } from "./user-avatar";

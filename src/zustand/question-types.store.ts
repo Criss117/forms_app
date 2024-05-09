@@ -2,8 +2,6 @@ import { create } from "zustand";
 
 import { QuestionType } from "@/actions/question-types/types";
 import { LOCAL_STORAGE_KEYS } from "@/lib/constants";
-import { stat } from "fs";
-
 interface QuestionTypesStore {
   questionTypes: Array<QuestionType> | [];
   typeSelected: QuestionType | null;

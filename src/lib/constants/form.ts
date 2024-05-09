@@ -59,4 +59,26 @@ export const FORM_MESSAGE = {
     MIN_LENGHT: "La consulta es demasiado corta",
     MAX_LENGHT: "La consulta es demasiado larga",
   },
+  ANSWER: {
+    REQUIRED: "La respuesta es requerida",
+    INVALID_TYPE: "La respuesta es inválida",
+    MIN_LENGHT: "La respuesta es demasiado corta",
+    MAX_LENGHT: "La respuesta es demasiado larga",
+  },
+  REQUIRED: {
+    REQUIRED: "El campo es requerido",
+    INVALID_TYPE: "El campo es inválido",
+    MIN_LENGHT: "El campo es demasiado corto",
+    MAX_LENGHT: "El campo es demasiado largo",
+  },
+  QUESTION: {
+    REQUIRED: "La pregunta es requerida",
+    INVALID_TYPE: "La pregunta es inválida",
+    MIN_LENGHT: "La pregunta es demasiado corta",
+    MAX_LENGHT: "La pregunta es demasiado larga",
+  },
+  SUBTYPE: {
+    REQUIRED: "El tipo de pregunta es requerido",
+    INVALID_TYPE: "El tipo de pregunta es inválido",
+  },
 };

@@ -19,4 +19,7 @@ export const API_ENDPOINTS = {
   TYPES: {
     FIND: "/types",
   },
+  QUESTION: {
+    CREATE: "/questions",
+  },
 };

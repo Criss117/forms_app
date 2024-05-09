@@ -125,7 +125,7 @@ export async function addFolderMembersHandler(
   const { userId, folderId, permission, jwtoken } = members;
   try {
     const { data, status } = await formApi.post(
-      `${API_ENDPOINTS.FOLDER.ADD_MEMBERS}`,
+      API_ENDPOINTS.FOLDER.ADD_MEMBERS,
       {
         userId,
         folderId,
