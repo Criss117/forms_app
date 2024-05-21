@@ -30,7 +30,7 @@ export const QuestionSchema = z.object({
 
 export const CreateAnswerSchema = z.object({
   id: z.number(),
-  answer: z.string().max(255, { message: FORM_MESSAGE.ANSWER.MAX_LENGHT }),
+  answer: z.string().max(255, { message: FORM_MESSAGE.ANSWER.MAX_LENGTH }),
 });
 
 export const CreateQuestionSchema = z.object({

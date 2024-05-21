@@ -6,8 +6,13 @@ import { createSafeAction, formApi, handlerError } from "@/lib";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
 
-import { CreateFormInputType, CreateFormReturnType } from "./types";
-import { CreateFormSchema } from "./schema";
+import {
+  CreateFormInputType,
+  CreateFormReturnType,
+  FindFormInputType,
+  FindFormReturnType,
+} from "./types";
+import { CreateFormSchema, FindFormSchema } from "./schema";
 
 async function createFormHandler(
   form: CreateFormInputType
@@ -48,4 +53,41 @@ async function createFormHandler(
   }
 }
 
+async function findFormHandler(
+  data: FindFormInputType
+): Promise<FindFormReturnType> {
+  const { formId, jwtoken } = data;
+
+  try {
+    const { status, data } = await formApi.get(
+      `${API_ENDPOINTS.FORM.FIND}/${formId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      }
+    );
+
+    if (status !== 200) {
+      return {
+        response: {
+          statusCode: status,
+          message: data.message,
+        },
+      };
+    }
+
+    return {
+      response: {
+        statusCode: status,
+        message: data.message,
+        data: data.data,
+      },
+    };
+  } catch (error: AxiosResponse<CommonAPIResponse> | any) {
+    return handlerError(error);
+  }
+}
+
 export const createForm = createSafeAction(CreateFormSchema, createFormHandler);
+export const findFormById = createSafeAction(FindFormSchema, findFormHandler);

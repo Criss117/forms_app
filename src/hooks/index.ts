@@ -5,6 +5,7 @@ export { default as useChangePass } from "./use-change-pass";
 export { default as useNavMenu } from "./use-nav-menu";
 
 export { default as useCommonForm } from "./utils/use-common-form";
+export { default as useCurrentSession } from "./utils/use-current-session";
 
 export { default as useFolderActions } from "./use-actions/use-folder-actions";
 export { default as useFormActions } from "./use-actions/use-form-actions";

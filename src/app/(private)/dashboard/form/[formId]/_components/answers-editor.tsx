@@ -32,7 +32,7 @@ interface Props {
   remove: (index?: number | number[]) => void;
 }
 
-const Answers = ({ form, fields, isPending, remove }: Props) => {
+const AnswersEditor = ({ form, fields, isPending, remove }: Props) => {
   return (
     <>
       {fields.map((field, index) => (
@@ -80,4 +80,4 @@ const Answers = ({ form, fields, isPending, remove }: Props) => {
   );
 };
 
-export default Answers;
+export default AnswersEditor;

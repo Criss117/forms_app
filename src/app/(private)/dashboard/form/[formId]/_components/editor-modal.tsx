@@ -60,7 +60,9 @@ const EditorModal = () => {
         </DialogHeader>
         {isPending ? <EditorMenuSkeleton /> : <EditorMenu />}
         <DialogFooter>
-          {isSubtypeSelected && <Button onClick={backButton}>Atras</Button>}
+          <div className="flex justify-start items-start w-full">
+            {isSubtypeSelected && <Button onClick={backButton}>Atras</Button>}
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

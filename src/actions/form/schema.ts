@@ -27,6 +27,16 @@ export const CreateFormSchema = z.object({
   jwtoken: JwtSchema.shape.jwtoken,
 });
 
+export const FindFormSchema = z.object({
+  formId: z
+    .string({
+      required_error: FORM_MESSAGE.ID.REQUIRED,
+      invalid_type_error: FORM_MESSAGE.ID.INVALID_TYPE,
+    })
+    .uuid({ message: FORM_MESSAGE.ID.INVALID_TYPE }),
+  jwtoken: JwtSchema.shape.jwtoken,
+});
+
 export const CreateFormSchemaClient = z.object({
   folderId: CreateFormSchema.shape.folderId,
   name: CreateFormSchema.shape.name,

@@ -13,7 +13,7 @@ import {
 import { MULTIPLE_CHOISE_LIMIT } from "@/lib/constants";
 import { useQuestionEditor } from "@/hooks";
 
-import { Answers, ItemsData } from ".";
+import { AnswersEditor, ItemsData } from ".";
 
 const QuestionEditor = () => {
   const {
@@ -42,7 +42,7 @@ const QuestionEditor = () => {
           )}
         />
         <fieldset className="grid grid-cols-1 gap-4 mt-5">
-          <Answers
+          <AnswersEditor
             fields={fields}
             form={form}
             remove={remove}
@@ -74,7 +74,9 @@ const QuestionEditor = () => {
             <p>No puedes agregar mas de {MULTIPLE_CHOISE_LIMIT} respuestas</p>
           )}
         </fieldset>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="mt-5" variant="outline">
+          Guardar
+        </Button>
       </form>
     </Form>
   );
