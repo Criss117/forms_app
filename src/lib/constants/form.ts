@@ -60,10 +60,10 @@ export const FORM_MESSAGE = {
     MAX_LENGHT: "La consulta es demasiado larga",
   },
   ANSWER: {
-    REQUIRED: "La respuesta es requerida",
+    REQUIRED: "Las respuestas son requeridas",
     INVALID_TYPE: "La respuesta es inválida",
-    MIN_LENGHT: "La respuesta es demasiado corta",
-    MAX_LENGHT: "La respuesta es demasiado larga",
+    MIN_LENGTH: "La respuesta es demasiado corta",
+    MAX_LENGTH: "La respuesta es demasiado larga",
   },
   REQUIRED: {
     REQUIRED: "El campo es requerido",

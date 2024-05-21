@@ -18,7 +18,7 @@ export async function createQuestionHandler(
     const { data, status }: any = await formApi.post(
       API_ENDPOINTS.QUESTION.CREATE,
       {
-        question,
+        ...question,
       },
       {
         headers: {

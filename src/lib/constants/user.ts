@@ -12,4 +12,4 @@ export const USER_PERMISSIONS_LIST = [
   },
 ];
 
-export const MULTIPLE_CHOISE_LIMIT = 10;
+export const MULTIPLE_CHOISE_LIMIT = 5;

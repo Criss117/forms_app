@@ -30,10 +30,7 @@ export const QuestionSchema = z.object({
 
 export const CreateAnswerSchema = z.object({
   id: z.number(),
-  answer: z
-    .string()
-    .min(4, { message: FORM_MESSAGE.ANSWER.MIN_LENGHT })
-    .max(255, { message: FORM_MESSAGE.ANSWER.MAX_LENGHT }),
+  answer: z.string().max(255, { message: FORM_MESSAGE.ANSWER.MAX_LENGHT }),
 });
 
 export const CreateQuestionSchema = z.object({
@@ -47,9 +44,5 @@ export const CreateQuestionSchemaClient = z.object({
   required: QuestionSchema.shape.required,
   question: QuestionSchema.shape.question,
   subtypeId: QuestionSchema.shape.subtypeId,
-  answ1: CreateAnswerSchema.shape.answer,
-  answ2: CreateAnswerSchema.shape.answer,
-  answ3: CreateAnswerSchema.shape.answer,
-  answ4: CreateAnswerSchema.shape.answer,
-  answ5: CreateAnswerSchema.shape.answer,
+  answers: CreateQuestionSchema.shape.answers,
 });
