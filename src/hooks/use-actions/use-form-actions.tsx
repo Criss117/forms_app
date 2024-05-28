@@ -1,16 +1,19 @@
 "use client";
 
 import { z } from "zod";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
-import { createForm } from "@/actions/form";
+import { createForm, findFormById } from "@/actions/form";
 import { CreateFormSchemaClient } from "@/actions/form/schema";
 import { verifyResponse } from "@/lib";
-
-import { useCommonForm } from "..";
 import { PRIVATE_ROUTES } from "@/lib/constants";
+
+import { useCommonForm, useCurrentSession } from "..";
+import { useFormStore } from "@/zustand";
+
 const useFormActions = () => {
-  const { data } = useSession();
+  const { data, loading } = useCurrentSession();
+  const { setForm, handleLoading } = useFormStore();
 
   const commonFormConfig = {
     schema: CreateFormSchemaClient,
@@ -56,7 +59,42 @@ const useFormActions = () => {
     }
   );
 
-  return { error, form, isPending, createFormSubmit, setErrorHandler };
+  const findForm = (formId: string) => {
+    handleLoading(true);
+    if (loading) {
+      return;
+    }
+
+    if (data === null || formId === undefined) {
+      signOut();
+      return;
+    }
+
+    findFormById({ jwtoken: data.user.jwt, formId })
+      .then(({ response }) => {
+        const res = verifyResponse(response);
+        if (res?.statusCode === 404) {
+          signOut();
+          return;
+        }
+
+        if (res?.success && response?.data) {
+          setForm(response.data);
+        }
+      })
+      .finally(() => {
+        handleLoading(false);
+      });
+  };
+
+  return {
+    error,
+    form,
+    isPending,
+    findForm,
+    createFormSubmit,
+    setErrorHandler,
+  };
 };
 
 export default useFormActions;

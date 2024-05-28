@@ -17,11 +17,14 @@ import { useQuestionEditorStore, useQuestionTypesStore } from "@/zustand";
 import { EditorMenu, EditorMenuSkeleton } from ".";
 
 const EditorModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const { isPending, fetchQuestionTypes } = useQuestionTypes();
 
-  const { isSubtypeSelected, clearState: clearEditorState } =
-    useQuestionEditorStore();
+  const {
+    isSubtypeSelected,
+    isModalOpen,
+    clearState: clearEditorState,
+    setIsOpenModal,
+  } = useQuestionEditorStore();
 
   const { typeSelected, clearTypeSelected, clearState } =
     useQuestionTypesStore();
@@ -31,7 +34,7 @@ const EditorModal = () => {
   };
 
   useEffect(() => {
-    if (!isOpen) {
+    if (!isModalOpen) {
       clearTypeSelected();
       return;
     }
@@ -42,10 +45,10 @@ const EditorModal = () => {
       clearState();
       clearEditorState();
     };
-  }, [isOpen]);
+  }, [isModalOpen]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isModalOpen} onOpenChange={setIsOpenModal}>
       <DialogTrigger>
         <Button asChild>
           <p>Agregar pregunta</p>
