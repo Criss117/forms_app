@@ -1,15 +1,9 @@
 "use client";
 import { useEffect } from "react";
 
-import { useFolderActions } from "@/hooks";
+import { useApiPetition, useFolderActions } from "@/hooks";
 import { useFolderStore } from "@/zustand";
-import {
-  FolderBody,
-  FolderHeader,
-  FolderHeaderSkeleton,
-  Members,
-} from "./_components";
-import { useSession } from "next-auth/react";
+import { FolderBody, FolderHeader, Members } from "./_components";
 
 interface Props {
   params: {
@@ -18,19 +12,23 @@ interface Props {
 }
 
 const FolderPage = ({ params }: Props) => {
-  const { data } = useSession();
+  const { ready } = useApiPetition();
   const { isPending, findOneFolder } = useFolderActions();
-  const { clearCurrentFolder } = useFolderStore();
+  const { clearCurrentFolder, setCurrentFolder } = useFolderStore();
 
   const { folderId } = params;
 
   useEffect(() => {
-    findOneFolder(folderId);
+    if (!ready) return;
+
+    findOneFolder(folderId).then((folder) => {
+      setCurrentFolder(folder);
+    });
 
     return () => {
       clearCurrentFolder();
     };
-  }, [folderId, data]);
+  }, [folderId, ready]);
 
   return (
     <>

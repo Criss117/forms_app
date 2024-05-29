@@ -11,7 +11,7 @@ import {
   AddFolderMemberReturnType,
   CreateFolderInputType,
   CreateFolderReturnType,
-  FindALlFolders,
+  Folders,
   FindFolderInputType,
   FindFolderReturnType,
   FindFoldersInputType,
@@ -28,7 +28,7 @@ async function findFoldersHandler({
   jwtoken,
 }: FindFoldersInputType): Promise<FindFoldersReturnType> {
   try {
-    const { data, status }: AxiosResponse<CommonAPIResponse<FindALlFolders>> =
+    const { data, status }: AxiosResponse<CommonAPIResponse<Folders>> =
       await formApi.get(API_ENDPOINTS.FOLDER.FIND, {
         headers: {
           Authorization: `Bearer ${jwtoken}`,
@@ -150,12 +150,18 @@ export async function addFolderMembersHandler(
   }
 }
 
-export const findFolders = createSafeAction(JwtSchema, findFoldersHandler);
+export const findFoldersAction = createSafeAction(
+  JwtSchema,
+  findFoldersHandler
+);
+
 export const createFolder = createSafeAction(
   CreateFolderSchema,
   createFolderHandler
 );
+
 export const findFolder = createSafeAction(FindFolderSchema, findFolderHandler);
+
 export const addFolderMembers = createSafeAction(
   addFolderMembersSchema,
   addFolderMembersHandler

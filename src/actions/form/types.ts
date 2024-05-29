@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { CreateFormSchema, FindFormSchema } from "@/actions/form/schema";
 import { ActionState } from "@/lib";
+import { Subtype } from "../question-types/types";
 
 export type FormHeader = {
   id: string;
@@ -26,15 +27,6 @@ export interface Question {
 export interface Answer {
   id: number;
   answer: string;
-  createdAt: Date;
-  updatedAt: Date;
-  active: number;
-}
-
-export interface Subtype {
-  id: number;
-  name: string;
-  description: string;
   createdAt: Date;
   updatedAt: Date;
   active: number;

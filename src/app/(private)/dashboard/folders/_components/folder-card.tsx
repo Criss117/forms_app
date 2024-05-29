@@ -25,7 +25,8 @@ export const FolderCard = ({ folder }: Props) => {
         className="
           mx-auto w-[100%] sm:w-[80%] md:w-xs 
           bg-gradient-to-br to-lightaccent-100 
-          from-orange-700 hover:opacity-90 transition"
+          from-orange-700 hover:opacity-90 transition h-full
+          flex flex-col justify-between"
       >
         <CardHeader>
           <CardTitle className="text-white">{name}</CardTitle>

@@ -14,6 +14,8 @@ import { MULTIPLE_CHOISE_LIMIT } from "@/lib/constants";
 import { useQuestionEditor } from "@/hooks";
 
 import { AnswersEditor, ItemsData } from ".";
+import { useQuestionEditorStore } from "@/zustand";
+import { useEffect } from "react";
 
 const QuestionEditor = () => {
   const {
@@ -25,6 +27,14 @@ const QuestionEditor = () => {
     remove,
     createQuestionSubmit,
   } = useQuestionEditor();
+
+  const { editing, questionEditing } = useQuestionEditorStore();
+
+  useEffect(() => {
+    if (editing) {
+      form.reset(questionEditing);
+    }
+  }, [editing, questionEditing]);
 
   return (
     <Form {...form}>

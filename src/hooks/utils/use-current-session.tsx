@@ -28,6 +28,7 @@ const useCurrentSession = () => {
 
   return {
     data,
+    status,
     loading,
   };
 };

@@ -21,12 +21,12 @@ export type Folder = {
   permission: USER_PERMISSIONS;
 };
 
-export type FindALlFolders = {
+export type Folders = {
   ownerFolders: Array<Folder>;
   sharedFolders: Array<Folder>;
 };
 
-type UserFolder = {
+type User = {
   id: number;
   name: string;
   surname: string;
@@ -35,15 +35,12 @@ type UserFolder = {
 
 export type FolderComplete = Folder & {
   forms: Array<FormHeader>;
-  ownerUser?: UserFolder;
-  members?: Array<UserFolder>;
+  ownerUser?: User;
+  members?: Array<User>;
 };
 
 export type FindFoldersInputType = z.infer<typeof JwtSchema>;
-export type FindFoldersReturnType = ActionState<
-  FindFoldersInputType,
-  FindALlFolders
->;
+export type FindFoldersReturnType = ActionState<FindFoldersInputType, Folders>;
 
 export type CreateFolderInputType = z.infer<typeof CreateFolderSchema>;
 export type CreateFolderReturnType = ActionState<CreateFolderInputType, Folder>;

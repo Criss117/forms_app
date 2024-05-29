@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { CommonAPIResponse } from "./models";
 import { PRIVATE_ROUTES, STATUS_CODE } from "@/lib/constants";
 
-interface IError {
+interface Response {
   error: string;
   success: boolean;
   statusCode: number;
@@ -19,17 +19,17 @@ export function cn(...inputs: ClassValue[]) {
 export function verifyResponse(
   response: CommonAPIResponse<any> | null | undefined
 ) {
-  if (!response)
+  if (!response) {
     return {
       error: "Hubo un error",
       success: false,
       statusCode: 404,
       errorCode: -1,
     };
+  }
 
   const { CLIENT_ERRROS, DB_ERRORS, SUCCESSFULL } = STATUS_CODE;
-
-  let res: IError | undefined;
+  let res: Response | null = null;
 
   for (const error of DB_ERRORS) {
     if (response.errorCode === error.CODE) {

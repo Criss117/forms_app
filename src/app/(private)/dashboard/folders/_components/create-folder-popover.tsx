@@ -1,7 +1,7 @@
 "use client";
 
 import { CommonPopover } from "@/components";
-import useFolderActions from "@/hooks/use-actions/use-folder-actions";
+import useFolderActions from "@/hooks/use-actions/use-folder.actions";
 import { FormRender } from "@/components/form";
 import { FORM_INPUTS } from "@/lib/constants";
 

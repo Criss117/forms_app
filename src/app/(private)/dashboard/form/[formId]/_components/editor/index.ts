@@ -4,4 +4,3 @@ export { default as EditorMenuSkeleton } from "./editor-menu-skeleton";
 export { default as QuestionEditor } from "./question-editor";
 export { default as ItemsData } from "./items-data";
 export { default as AnswersEditor } from "./answers-editor";
-export { default as FormSkeleton } from "./form-skeleton";

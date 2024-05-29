@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { FindALlFolders, Folder, FolderComplete } from "@/actions/folder/types";
+import { Folders, Folder, FolderComplete } from "@/actions/folder/types";
 
 interface FolderStore {
   currentFolder: FolderComplete | undefined;
@@ -8,7 +8,7 @@ interface FolderStore {
   sharedFolders: Array<Folder> | [];
   setCurrentFolder: (folder: FolderComplete | undefined) => void;
   setFolder: (folder: Folder | undefined) => void;
-  setFolders: (folders: FindALlFolders) => void;
+  setFolders: (folders: Folders | undefined) => void;
   clearCurrentFolder: () => void;
   clearFolders: () => void;
 }
@@ -23,11 +23,13 @@ const useFolderStore = create<FolderStore>((set, get) => {
     },
     setFolder: (folder: Folder | undefined) => {
       if (!folder) return;
+
       const { folders: oldFolders } = get();
-      const newFolders: Folder[] = [...oldFolders, folder];
-      set({ folders: newFolders });
+      set({ folders: [...oldFolders, folder] });
     },
-    setFolders: (newFolders: FindALlFolders) => {
+    setFolders: (newFolders: Folders | undefined) => {
+      if (!newFolders) return;
+
       const { clearFolders } = get();
       clearFolders();
 

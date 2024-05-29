@@ -8,12 +8,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui";
 import { useQuestionEditorStore, useQuestionTypesStore } from "@/zustand";
-import { QuestionType } from "@/actions/question-types/types";
-
+import { QuestionType, Subtype } from "@/actions/question-types/types";
 import { QuestionEditor } from ".";
 
 interface Props {
-  type: QuestionType | null;
+  type: QuestionType | Subtype | null;
   onClick: () => void;
 }
 

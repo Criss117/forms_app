@@ -3,44 +3,37 @@
 import { z } from "zod";
 import { signOut } from "next-auth/react";
 
-import { createForm, findFormById } from "@/actions/form";
 import { CreateFormSchemaClient } from "@/actions/form/schema";
-import { verifyResponse } from "@/lib";
+import { createForm, findFormById } from "@/actions/form";
 import { PRIVATE_ROUTES } from "@/lib/constants";
-
-import { useCommonForm, useCurrentSession } from "..";
 import { useFormStore } from "@/zustand";
+import { verifyResponse } from "@/lib";
+
+import { useApiPetition, useCommonForm } from "..";
+
+const commonFormConfig = {
+  schema: CreateFormSchemaClient,
+  defaultValues: {
+    name: "",
+    description: "",
+    folderId: "",
+  },
+};
 
 const useFormActions = () => {
-  const { data, loading } = useCurrentSession();
-  const { setForm, handleLoading } = useFormStore();
+  const { jwt, isPending, ready, handlePetition } = useApiPetition();
+  const { setForm } = useFormStore();
 
-  const commonFormConfig = {
-    schema: CreateFormSchemaClient,
-    defaultValues: {
-      name: "",
-      description: "",
-      folderId: "",
-    },
-  };
-
-  const { error, isPending, form, setErrorHandler, push, startTransition } =
+  const { error, form, setErrorHandler, push, startTransition } =
     useCommonForm<typeof CreateFormSchemaClient>(commonFormConfig);
 
   const createFormSubmit = form.handleSubmit(
     (values: z.infer<typeof CreateFormSchemaClient>) => {
-      if (data?.user.jwt === undefined) {
-        return;
-      }
-
-      if (values.folderId === "") {
-        setErrorHandler("Por favor, seleccione una carpeta", 6000);
-        return;
-      }
+      if (!ready) return;
 
       const newForm = {
         ...values,
-        jwtoken: data?.user.jwt,
+        jwtoken: jwt,
       };
 
       setErrorHandler("");
@@ -59,18 +52,11 @@ const useFormActions = () => {
     }
   );
 
-  const findForm = (formId: string) => {
-    handleLoading(true);
-    if (loading) {
-      return;
-    }
+  const findForm = async (formId: string) => {
+    if (!ready) return;
 
-    if (data === null || formId === undefined) {
-      signOut();
-      return;
-    }
-
-    findFormById({ jwtoken: data.user.jwt, formId })
+    handlePetition("init");
+    const form = await findFormById({ jwtoken: jwt, formId })
       .then(({ response }) => {
         const res = verifyResponse(response);
         if (res?.statusCode === 404) {
@@ -80,11 +66,14 @@ const useFormActions = () => {
 
         if (res?.success && response?.data) {
           setForm(response.data);
+          return response.data;
         }
       })
       .finally(() => {
-        handleLoading(false);
+        handlePetition("finished");
       });
+
+    return form;
   };
 
   return {

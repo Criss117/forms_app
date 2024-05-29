@@ -1,24 +1,25 @@
 "use client";
 import { PropsWithChildren, useEffect } from "react";
-import { useSession } from "next-auth/react";
 
 import { useFolderStore } from "@/zustand";
-import { useFolderActions } from "@/hooks";
+import { useApiPetition, useFolderActions } from "@/hooks";
 import { TooltipProvider } from "@/components/ui";
 
 const DashboardLayout = ({ children }: PropsWithChildren) => {
-  const { data } = useSession();
+  const { ready } = useApiPetition();
 
-  const { clearFolders } = useFolderStore();
   const { findAllFolders } = useFolderActions();
+  const { clearFolders, setFolders } = useFolderStore();
 
   useEffect(() => {
-    findAllFolders();
+    if (!ready) return;
+
+    findAllFolders().then((folders) => setFolders(folders));
 
     return () => {
       clearFolders();
     };
-  }, [data]);
+  }, [ready]);
 
   return <TooltipProvider delayDuration={200}>{children}</TooltipProvider>;
 };
