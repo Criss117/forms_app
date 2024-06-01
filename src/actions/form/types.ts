@@ -3,6 +3,7 @@ import { z } from "zod";
 import { CreateFormSchema, FindFormSchema } from "@/actions/form/schema";
 import { ActionState } from "@/lib";
 import { Subtype } from "../question-types/types";
+import { USER_PERMISSIONS } from "@/lib/constants";
 
 export type FormHeader = {
   id: string;
@@ -11,6 +12,9 @@ export type FormHeader = {
   createdAt: string;
   updatedAt: string;
   active: number;
+  folderd: string;
+  owner: boolean;
+  permission: USER_PERMISSIONS;
 };
 
 export interface Question {

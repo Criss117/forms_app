@@ -32,7 +32,11 @@ const QuestionEditor = () => {
 
   useEffect(() => {
     if (editing) {
-      form.reset(questionEditing);
+      form.setValue("question", questionEditing.question);
+      form.setValue("required", questionEditing.required);
+      form.setValue("subtypeId", questionEditing.subtype.id);
+      form.setValue("answers", questionEditing.answers);
+      form.setValue("questionId", questionEditing.id);
     }
   }, [editing, questionEditing]);
 

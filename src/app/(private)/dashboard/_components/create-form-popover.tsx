@@ -26,7 +26,9 @@ const TriggerSm = () => {
       asChild
     >
       <p>
-        <span className="hidden md:block text-white text-sm">Crear</span>
+        <span className="hidden md:block text-white text-sm">
+          Crear Encuesta
+        </span>
         <Plus className="md:hidden text-white text-sm" />
       </p>
     </Button>

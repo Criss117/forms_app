@@ -15,7 +15,7 @@ export const CreateFormSchema = z.object({
       required_error: FORM_MESSAGE.NAME.REQUIRED,
       invalid_type_error: FORM_MESSAGE.NAME.INVALID_TYPE,
     })
-    .min(4, { message: FORM_MESSAGE.NAME.MIN_LENGHT })
+    .min(5, { message: FORM_MESSAGE.NAME.MIN_LENGHT })
     .max(30, { message: FORM_MESSAGE.NAME.MAX_LENGHT }),
   description: z
     .string({
@@ -28,6 +28,12 @@ export const CreateFormSchema = z.object({
 });
 
 export const FindFormSchema = z.object({
+  folderId: z
+    .string({
+      required_error: FORM_MESSAGE.FOLDER.REQUIRED,
+      invalid_type_error: FORM_MESSAGE.FOLDER.INVALID_TYPE,
+    })
+    .max(50, { message: FORM_MESSAGE.FOLDER.MAX_LENGHT }),
   formId: z
     .string({
       required_error: FORM_MESSAGE.ID.REQUIRED,

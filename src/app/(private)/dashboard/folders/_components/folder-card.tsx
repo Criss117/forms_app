@@ -1,6 +1,6 @@
 "use client";
 
-import { Folder } from "@/actions/folder/types";
+import Link from "next/link";
 import { formatDate } from "@/lib";
 import {
   Card,
@@ -9,8 +9,9 @@ import {
   CardTitle,
   Skeleton,
 } from "@/components/ui";
-import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/lib/constants";
+
+import type { Folder } from "@/actions/folder/types";
 
 interface Props {
   folder: Folder;

@@ -24,7 +24,7 @@ const useFormActions = () => {
   const { jwt, isPending, ready, handlePetition } = useApiPetition();
   const { setForm } = useFormStore();
 
-  const { error, form, setErrorHandler, push, startTransition } =
+  const { error, form, setErrorHandler, push } =
     useCommonForm<typeof CreateFormSchemaClient>(commonFormConfig);
 
   const createFormSubmit = form.handleSubmit(
@@ -37,9 +37,11 @@ const useFormActions = () => {
       };
 
       setErrorHandler("");
-      startTransition(async () => {
-        await createForm(newForm).then(({ response }) => {
+      handlePetition("init");
+      createForm(newForm)
+        .then(({ response }) => {
           const state = verifyResponse(response);
+
           if (state?.statusCode === 404) {
             signOut();
             return;
@@ -47,18 +49,21 @@ const useFormActions = () => {
           if (state?.success) {
             push(PRIVATE_ROUTES.FORM_HOME + "/" + response?.data?.formId);
           }
+        })
+        .finally(() => {
+          handlePetition("finished");
         });
-      });
     }
   );
 
-  const findForm = async (formId: string) => {
+  const findForm = async (formId: string, folderId: string) => {
     if (!ready) return;
 
     handlePetition("init");
-    const form = await findFormById({ jwtoken: jwt, formId })
+    const form = await findFormById({ jwtoken: jwt, formId, folderId })
       .then(({ response }) => {
         const res = verifyResponse(response);
+
         if (res?.statusCode === 404) {
           signOut();
           return;

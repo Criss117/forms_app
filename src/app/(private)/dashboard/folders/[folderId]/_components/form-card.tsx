@@ -13,14 +13,17 @@ import { PRIVATE_ROUTES } from "@/lib/constants";
 import { FormHeader } from "@/actions/form";
 
 interface Props {
+  folderId: string;
   form: FormHeader;
 }
 
-export const FormCard = ({ form }: Props) => {
+export const FormCard = ({ folderId, form }: Props) => {
   const { createdAt, id, name } = form;
 
+  const { FOLDERS_HOME, FORM_HOME } = PRIVATE_ROUTES;
+
   return (
-    <Link href={`${PRIVATE_ROUTES.FORM_HOME}/${id}`}>
+    <Link href={`${FOLDERS_HOME}/${folderId}/${FORM_HOME}/${id}`}>
       <Card
         className="
           mx-auto w-[100%] sm:w-[80%] md:w-xs h-32

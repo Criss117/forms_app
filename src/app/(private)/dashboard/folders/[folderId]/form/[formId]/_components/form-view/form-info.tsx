@@ -1,14 +1,13 @@
 import { Skeleton } from "@/components/ui";
-import { FormComplete } from "@/actions/form";
 
 import { Questions } from ".";
 import { EditorModal } from "../editor";
+import { USER_PERMISSIONS } from "@/lib/constants";
+import { useFormStore } from "@/zustand";
 
-interface Props {
-  form?: FormComplete | null;
-}
+export const FormInfo = () => {
+  const { form } = useFormStore();
 
-export const FormInfo = ({ form }: Props) => {
   return (
     <section className="border mt-5 px-2 pb-2 space-y-2">
       <header className="pt-2 flex justify-between">
@@ -16,11 +15,22 @@ export const FormInfo = ({ form }: Props) => {
         <p className="tetx-sm text-gray-400">{form?.description}</p>
       </header>
       <section className="flex gap-2 flex-col">
-        <Questions questions={form?.questions || []} />
+        <Questions
+          questions={form?.questions || []}
+          owner={form?.owner || false}
+          permission={form?.permission || USER_PERMISSIONS.READ}
+        />
       </section>
-      <footer className="flex justify-end border">
-        <EditorModal />
-      </footer>
+      {!form?.owner &&
+      form?.permission?.toString() === USER_PERMISSIONS.READ ? (
+        <p className="text-sm text-gray-400">
+          No tienes permisos para editar esta encuesta
+        </p>
+      ) : (
+        <footer className="flex justify-end border">
+          <EditorModal />
+        </footer>
+      )}
     </section>
   );
 };

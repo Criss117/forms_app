@@ -1,19 +1,17 @@
 "use client";
-import { Settings2 } from "lucide-react";
-
-import { QUESTION_TYPES } from "@/lib/constants";
-import { CommonPopover } from "@/components";
+import { QUESTION_TYPES, USER_PERMISSIONS } from "@/lib/constants";
 import { Question } from "@/actions/form";
-import { Button } from "@/components/ui";
 
-import { UniqueDropAnswers, UniqueRadioAnswers } from ".";
+import { EditButton, UniqueDropAnswers, UniqueRadioAnswers } from ".";
 import { useQuestionEditorStore } from "@/zustand";
 
 interface Props {
+  owner: boolean;
+  permission: USER_PERMISSIONS;
   questions: Question[];
 }
 
-const Questions = ({ questions }: Props) => {
+const Questions = ({ questions, owner, permission }: Props) => {
   const { setQuestionToEdit, setIsOpenModal, setSubtypeSelected } =
     useQuestionEditorStore();
 
@@ -39,32 +37,11 @@ const Questions = ({ questions }: Props) => {
           {question.subtype.id === QUESTION_TYPES.UNIQUE_CHOISE_DP && (
             <UniqueDropAnswers answers={question.answers} />
           )}
-          <div className="absolute right-[10px] top-[10px]">
-            <CommonPopover
-              trigger={
-                <Button
-                  variant="ghost"
-                  className="rounded-full bg-lightprimary-200 hover:bg-lightprimary-200/80 transition-colors"
-                  asChild
-                >
-                  <p>
-                    <Settings2 className="text-white w-full h-full" />
-                  </p>
-                </Button>
-              }
-            >
-              <div className="flex flex-col gap-2 mt-10">
-                <Button
-                  onClick={() => {
-                    openEdit(question);
-                  }}
-                >
-                  Editar
-                </Button>
-                <Button variant="destructive">Eliminar</Button>
-              </div>
-            </CommonPopover>
-          </div>
+          <EditButton
+            owner={owner}
+            permission={permission}
+            onClick={() => openEdit(question)}
+          />
         </div>
       ))}
     </>

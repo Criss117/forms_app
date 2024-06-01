@@ -129,7 +129,7 @@ export async function addFolderMembersHandler(
       {
         userId,
         folderId,
-        permission,
+        permission: Number(permission),
       },
       {
         headers: {

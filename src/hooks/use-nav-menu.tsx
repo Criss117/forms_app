@@ -4,47 +4,49 @@ import { useEffect, useState } from "react";
 import { useFolderStore } from "@/zustand";
 import { PRIVATE_ROUTES } from "@/lib/constants";
 
-interface NavInfo {
-  itemName: string;
-  items:
-    | Array<{
-        name: string;
-        href: string;
-      }>
-    | [];
-}
+type NavFolder = {
+  name: string;
+  href: string;
+};
 
-const initialNavInfo: Array<NavInfo> = [
-  {
-    itemName: "Carpetas",
-    items: [],
+type NavInfo = {
+  folders: {
+    own: Array<NavFolder> | [];
+    shared: Array<NavFolder> | [];
+  };
+  currentFolders: Array<NavFolder> | [];
+};
+
+const initialNavInfo: NavInfo = {
+  folders: {
+    own: [],
+    shared: [],
   },
-  {
-    itemName: "Recientes",
-    items: [],
-  },
-];
+  currentFolders: [],
+};
 
 const useNavMenu = () => {
-  const [navInfo, setNavInfo] = useState<Array<NavInfo>>(initialNavInfo);
-  const { folders } = useFolderStore();
+  const [navInfo, setNavInfo] = useState(initialNavInfo);
+  const { folders, sharedFolders } = useFolderStore();
 
   useEffect(() => {
-    if (folders.length === 0) return;
-    const newNavinfo = navInfo.map((item) => {
-      if (item.itemName === "Carpetas") {
-        return {
-          itemName: "Carpetas",
-          items: folders.map((folder) => ({
-            name: folder.name,
-            href: `${PRIVATE_ROUTES.FOLDERS_HOME}/${folder.id}`,
-          })),
-        };
-      }
-      return item;
-    });
+    if (folders.length === 0 && sharedFolders.length === 0) return;
 
-    setNavInfo(newNavinfo);
+    const navFolders = {
+      own: folders.map((folder) => ({
+        name: folder.name,
+        href: `${PRIVATE_ROUTES.FOLDERS_HOME}/${folder.id}`,
+      })),
+      shared: sharedFolders.map((folder) => ({
+        name: folder.name,
+        href: `${PRIVATE_ROUTES.FOLDERS_HOME}/${folder.id}`,
+      })),
+    };
+
+    setNavInfo((prev) => ({
+      ...prev,
+      folders: navFolders,
+    }));
   }, [folders]);
 
   return {

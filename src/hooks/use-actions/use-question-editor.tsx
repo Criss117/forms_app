@@ -9,12 +9,14 @@ import { useCommonForm, useFormActions } from "@/hooks";
 import { FORM_MESSAGE } from "@/lib/constants";
 import { createQuestion } from "@/actions/question/action";
 import { verifyResponse } from "@/lib";
-import { useQuestionEditorStore } from "@/zustand";
+import { useFormStore, useQuestionEditorStore } from "@/zustand";
 import { useToast } from "@/components/ui";
+import { Question } from "@/actions/form";
 
 const commonFormConfig = {
   schema: CreateQuestionSchemaClient,
   defaultValues: {
+    questionId: -1,
     subtypeId: 0,
     question: "",
     formId: "",
@@ -34,9 +36,9 @@ const commonFormConfig = {
 
 const useQuestionEditor = () => {
   const { data } = useSession();
-  const { findForm } = useFormActions();
   const { toast } = useToast();
-  const { setIsOpenModal } = useQuestionEditorStore();
+  const { setNewQuestion } = useFormStore();
+  const { editing, setIsOpenModal } = useQuestionEditorStore();
 
   const { error, isPending, form, setErrorHandler, startTransition } =
     useCommonForm<typeof CreateQuestionSchemaClient>(commonFormConfig);
@@ -75,6 +77,7 @@ const useQuestionEditor = () => {
           question: rest,
           jwtoken: data?.user.jwt,
           answers,
+          editing,
         }).then(({ response }) => {
           const state = verifyResponse(response);
 
@@ -90,8 +93,9 @@ const useQuestionEditor = () => {
               description: "La pregunta se ha creado correctamente",
               duration: 5000,
             });
-            findForm(form.getValues("formId"));
           }
+
+          setNewQuestion(response?.data as Question);
         });
         form.reset();
       });

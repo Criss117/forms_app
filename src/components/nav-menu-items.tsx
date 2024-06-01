@@ -2,13 +2,13 @@ import Link from "next/link";
 import FolderItem from "./folder-item";
 import { Skeleton } from "./ui";
 
+type NavFolder = {
+  name: string;
+  href: string;
+};
+
 interface Props {
-  items:
-    | {
-        name: string;
-        href: string;
-      }[]
-    | [];
+  items: Array<NavFolder>;
 }
 
 const NavMenuItems = ({ items }: Props) => {

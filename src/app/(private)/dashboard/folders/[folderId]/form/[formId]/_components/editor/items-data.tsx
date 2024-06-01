@@ -1,12 +1,27 @@
 "use client";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
+import { UseFormReturn } from "react-hook-form";
 
 import { FormControl, FormItem, Input } from "@/components/ui";
 import { useQuestionEditorStore } from "@/zustand";
 
 interface Props {
-  form: any;
+  form: UseFormReturn<
+    {
+      questionId: number;
+      formId: string;
+      required: boolean;
+      question: string;
+      subtypeId: number;
+      answers: {
+        id: number;
+        answer: string;
+      }[];
+    },
+    any,
+    undefined
+  >;
 }
 
 const ItemsData = ({ form }: Props) => {
@@ -22,6 +37,19 @@ const ItemsData = ({ form }: Props) => {
 
   return (
     <>
+      <FormItem>
+        <FormControl>
+          <Input
+            className="hidden"
+            placeholder="Respuesta correcta"
+            type="text"
+            disabled
+            {...form.control.register("questionId", {
+              required: true,
+            })}
+          />
+        </FormControl>
+      </FormItem>
       <FormItem>
         <FormControl>
           <Input

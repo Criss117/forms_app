@@ -45,7 +45,7 @@ export const FolderBody = ({ isPending }: PropsWithIsPending) => {
         {currentFolder &&
           currentFolder?.forms.length > 0 &&
           currentFolder?.forms.map((form) => (
-            <FormCard key={form.id} form={form} />
+            <FormCard key={form.id} form={form} folderId={currentFolder.id} />
           ))}
       </div>
     </section>

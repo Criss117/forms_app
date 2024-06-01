@@ -4,6 +4,7 @@ import { FORM_MESSAGE } from "@/lib/constants";
 import { JwtSchema } from "@/actions/schemas";
 
 export const QuestionSchema = z.object({
+  questionId: z.number(),
   formId: z
     .string({
       required_error: FORM_MESSAGE.ID.REQUIRED,
@@ -34,6 +35,7 @@ export const CreateAnswerSchema = z.object({
 });
 
 export const CreateQuestionSchema = z.object({
+  editing: z.boolean(),
   jwtoken: JwtSchema.shape.jwtoken,
   question: QuestionSchema,
   answers: z.array(CreateAnswerSchema),
@@ -42,6 +44,7 @@ export const CreateQuestionSchema = z.object({
 export const CreateQuestionSchemaClient = z.object({
   formId: QuestionSchema.shape.formId,
   required: QuestionSchema.shape.required,
+  questionId: QuestionSchema.shape.questionId,
   question: QuestionSchema.shape.question,
   subtypeId: QuestionSchema.shape.subtypeId,
   answers: CreateQuestionSchema.shape.answers,

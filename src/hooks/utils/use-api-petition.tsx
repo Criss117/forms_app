@@ -5,7 +5,7 @@ import useCurrentSession from "./use-current-session";
 const useApiPetition = () => {
   const [jwt, setJwt] = useState("");
   const [ready, setReady] = useState(false);
-  const [isPending, setIsPending] = useState(true);
+  const [isPending, setIsPending] = useState(false);
   const { data, loading } = useCurrentSession();
 
   useEffect(() => {

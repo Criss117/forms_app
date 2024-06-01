@@ -56,11 +56,11 @@ async function createFormHandler(
 async function findFormHandler(
   data: FindFormInputType
 ): Promise<FindFormReturnType> {
-  const { formId, jwtoken } = data;
+  const { formId, jwtoken, folderId } = data;
 
   try {
     const { status, data } = await formApi.get(
-      `${API_ENDPOINTS.FORM.FIND}/${formId}`,
+      `${API_ENDPOINTS.FOLDER.FIND}/${folderId}/${API_ENDPOINTS.FORM.FIND}/${formId}`,
       {
         headers: {
           Authorization: `Bearer ${jwtoken}`,
