@@ -16,10 +16,13 @@ import {
   FindFolderReturnType,
   FindFoldersInputType,
   FindFoldersReturnType,
+  DeleteFolderMemberInputType,
+  DeleteFolderMemberReturnType,
 } from "./types";
 import {
   addFolderMembersSchema,
   CreateFolderSchema,
+  deleteFolderMembersSchema,
   FindFolderSchema,
 } from "./schema";
 import { JwtSchema } from "../schemas";
@@ -150,6 +153,31 @@ export async function addFolderMembersHandler(
   }
 }
 
+export async function deleteMemberHandler(
+  memberInfo: DeleteFolderMemberInputType
+): Promise<DeleteFolderMemberReturnType> {
+  const { memberId, folderId, jwtoken } = memberInfo;
+  try {
+    await formApi.delete(
+      `${API_ENDPOINTS.FOLDER.CREATE}/${folderId}/members/${memberId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      }
+    );
+
+    return {
+      response: {
+        statusCode: 200,
+        message: "Member deleted successfully",
+      },
+    };
+  } catch (error: AxiosResponse<CommonAPIResponse> | any) {
+    return handlerError(error);
+  }
+}
+
 export const findFoldersAction = createSafeAction(
   JwtSchema,
   findFoldersHandler
@@ -165,4 +193,9 @@ export const findFolder = createSafeAction(FindFolderSchema, findFolderHandler);
 export const addFolderMembers = createSafeAction(
   addFolderMembersSchema,
   addFolderMembersHandler
+);
+
+export const deleteFolderMember = createSafeAction(
+  deleteFolderMembersSchema,
+  deleteMemberHandler
 );

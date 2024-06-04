@@ -23,4 +23,4 @@ export const API_ENDPOINTS = {
   QUESTION: {
     CREATE: "/questions",
   },
-};
+} as const;

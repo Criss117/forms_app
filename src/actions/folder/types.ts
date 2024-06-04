@@ -4,6 +4,7 @@ import { JwtSchema } from "@/actions/schemas";
 import {
   addFolderMembersSchema,
   CreateFolderSchema,
+  deleteFolderMembersSchema,
   FindFolderSchema,
 } from "@/actions/folder/schema";
 import { ActionState } from "@/lib";
@@ -54,5 +55,13 @@ export type FindFolderReturnType = ActionState<
 export type AddFolderMemberInputType = z.infer<typeof addFolderMembersSchema>;
 export type AddFolderMemberReturnType = ActionState<
   AddFolderMemberInputType,
+  any
+>;
+
+export type DeleteFolderMemberInputType = z.infer<
+  typeof deleteFolderMembersSchema
+>;
+export type DeleteFolderMemberReturnType = ActionState<
+  DeleteFolderMemberInputType,
   any
 >;

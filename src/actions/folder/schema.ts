@@ -37,3 +37,17 @@ export const addFolderMembersClientSchema = z.object({
 export const addFolderMembersSchema = addFolderMembersClientSchema.extend({
   jwtoken: JwtSchema.shape.jwtoken,
 });
+
+export const deleteFolderMembersClientSchema = z.object({
+  memberId: z.number({
+    required_error: FORM_MESSAGE.ID.REQUIRED,
+    invalid_type_error: FORM_MESSAGE.ID.INVALID_TYPE,
+  }),
+  folderId: FindFolderSchema.shape.folderId,
+});
+
+export const deleteFolderMembersSchema = deleteFolderMembersClientSchema.extend(
+  {
+    jwtoken: JwtSchema.shape.jwtoken,
+  }
+);
