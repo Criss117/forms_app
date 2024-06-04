@@ -9,9 +9,13 @@ import {
 
 import { NavMenuItems } from ".";
 import { useNavMenu } from "@/hooks";
+import { useRecentStore } from "@/zustand";
+import Link from "next/link";
+import { FileSliders, Folder } from "lucide-react";
 
 const NavMenu = () => {
   const { navInfo } = useNavMenu();
+  const { recent } = useRecentStore();
 
   const { currentFolders, folders } = navInfo;
 
@@ -30,10 +34,12 @@ const NavMenu = () => {
                   <NavMenuItems items={folders.own} />
                 </div>
 
-                <div className="shadow m-2 p-1">
-                  <p className="font-bold px-5">Compartidas</p>
-                  <NavMenuItems items={folders.shared} />
-                </div>
+                {folders.shared.length > 0 && (
+                  <div className="shadow m-2 p-1">
+                    <p className="font-bold px-5">Compartidas</p>
+                    <NavMenuItems items={folders.shared} />
+                  </div>
+                )}
               </section>
             )}
           </NavigationMenuContent>
@@ -42,7 +48,18 @@ const NavMenu = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Recientes</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <NavMenuItems items={currentFolders} />
+            <ul className="flex flex-col w-[300px] gap-y-2 m-2">
+              {recent.map(({ url, type, name }) => (
+                <li key={url}>
+                  <Link href={url}>
+                    <div className="flex items-center gap-2 p-1 rounded-sm hover:bg-lightbg-300/50">
+                      {type === "folder" ? <Folder /> : <FileSliders />}
+                      {name}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>

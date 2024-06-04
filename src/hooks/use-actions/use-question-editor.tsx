@@ -7,7 +7,10 @@ import { z } from "zod";
 import { CreateQuestionSchemaClient } from "@/actions/question/schema";
 import { useCommonForm, useFormActions } from "@/hooks";
 import { FORM_MESSAGE } from "@/lib/constants";
-import { createQuestion } from "@/actions/question/action";
+import {
+  createQuestion,
+  deleteQuestion as deleteQuestionHandler,
+} from "@/actions/question/action";
 import { verifyResponse } from "@/lib";
 import { useFormStore, useQuestionEditorStore } from "@/zustand";
 import { useToast } from "@/components/ui";
@@ -37,7 +40,7 @@ const commonFormConfig = {
 const useQuestionEditor = () => {
   const { data } = useSession();
   const { toast } = useToast();
-  const { setNewQuestion } = useFormStore();
+  const { setNewQuestion, removeQuestion } = useFormStore();
   const { editing, setIsOpenModal } = useQuestionEditorStore();
 
   const { error, isPending, form, setErrorHandler, startTransition } =
@@ -86,6 +89,16 @@ const useQuestionEditor = () => {
             return;
           }
 
+          if (!state?.success) {
+            setIsOpenModal(false);
+            toast({
+              title: "Error",
+              description: "Hubo un error al intentar crear la pregunta",
+              duration: 5000,
+              variant: "destructive",
+            });
+          }
+
           if (state?.success) {
             setIsOpenModal(false);
             toast({
@@ -102,6 +115,45 @@ const useQuestionEditor = () => {
     }
   );
 
+  const deleteQuestion = (questionId: number) => {
+    if (!data?.user.jwt) return;
+
+    startTransition(async () => {
+      await deleteQuestionHandler({
+        questionId,
+        jwtoken: data?.user.jwt,
+      }).then(({ response }) => {
+        const state = verifyResponse(response);
+        console.log({ response });
+        if (state?.statusCode === 404) {
+          signOut();
+          return;
+        }
+
+        if (!state?.success) {
+          setIsOpenModal(false);
+          toast({
+            title: "Error",
+            description: "Hubo un error al intentar eliminar la pregunta",
+            duration: 5000,
+            variant: "destructive",
+          });
+        }
+
+        if (state?.success) {
+          setIsOpenModal(false);
+          toast({
+            title: "Pregunta eliminada",
+            description: "La pregunta se ha eliminado correctamente",
+            duration: 5000,
+          });
+        }
+
+        removeQuestion(questionId);
+      });
+    });
+  };
+
   return {
     form,
     error,
@@ -110,6 +162,7 @@ const useQuestionEditor = () => {
     append,
     remove,
     createQuestionSubmit,
+    deleteQuestion,
   };
 };
 

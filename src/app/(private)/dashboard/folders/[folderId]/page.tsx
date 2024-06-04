@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 import { useApiPetition, useFolderActions } from "@/hooks";
-import { useFolderStore } from "@/zustand";
+import { useFolderStore, useRecentStore } from "@/zustand";
 import { FolderBody, FolderHeader, Members } from "./_components";
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 const FolderPage = ({ params }: Props) => {
   const { ready } = useApiPetition();
   const { isPending, findOneFolder } = useFolderActions();
+  const { addRecent } = useRecentStore();
   const { clearCurrentFolder, setCurrentFolder } = useFolderStore();
 
   const { folderId } = params;
@@ -23,6 +24,11 @@ const FolderPage = ({ params }: Props) => {
 
     findOneFolder(folderId).then((folder) => {
       setCurrentFolder(folder);
+      addRecent({
+        url: `/dashboard/folders/${folderId}`,
+        type: "folder",
+        name: folder?.name || "FOlderName",
+      });
     });
 
     return () => {

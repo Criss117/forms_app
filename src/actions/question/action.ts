@@ -6,8 +6,13 @@ import { createSafeAction, formApi, handlerError } from "@/lib";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { CommonAPIResponse } from "@/lib/models";
 
-import { CreateQuestionInputType, CreateQuestionReturnType } from "./types";
-import { CreateQuestionSchema } from "./schema";
+import {
+  CreateQuestionInputType,
+  CreateQuestionReturnType,
+  DeleteQuestionInputType,
+  DeleteQuestionReturnType,
+} from "./types";
+import { CreateQuestionSchema, DeleteQuestionSchema } from "./schema";
 
 export async function createQuestionHandler(
   newQuestion: CreateQuestionInputType
@@ -66,7 +71,38 @@ export async function createQuestionHandler(
   }
 }
 
+export async function deleteQuestionHandler({
+  questionId,
+  jwtoken,
+}: DeleteQuestionInputType): Promise<DeleteQuestionReturnType> {
+  try {
+    const { data, status }: any = await formApi.delete(
+      `${API_ENDPOINTS.QUESTION.CREATE}/${questionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtoken}`,
+        },
+      }
+    );
+
+    return {
+      response: {
+        statusCode: status,
+        message: data.message,
+        data: data.data,
+      },
+    };
+  } catch (error: AxiosResponse<CommonAPIResponse> | any) {
+    return handlerError(error);
+  }
+}
+
 export const createQuestion = createSafeAction(
   CreateQuestionSchema,
   createQuestionHandler
+);
+
+export const deleteQuestion = createSafeAction(
+  DeleteQuestionSchema,
+  deleteQuestionHandler
 );

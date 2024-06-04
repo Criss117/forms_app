@@ -8,6 +8,7 @@ interface FormStore {
   setNewQuestion: (newQuestion: Question) => void;
   clearForm: () => void;
   handleLoading: (loading: boolean) => void;
+  removeQuestion: (questionId: number) => void;
 }
 
 const initialState = {
@@ -40,6 +41,14 @@ const useFormStore = create<FormStore>((set, get) => {
         newQuestions.push(newQuestion);
       }
 
+      set({ form: { ...currentForm, questions: newQuestions } });
+    },
+    removeQuestion: (questionId: number) => {
+      const currentForm = get().form;
+      if (!currentForm) return;
+      const newQuestions = currentForm.questions.filter(
+        (question) => question.id !== questionId
+      );
       set({ form: { ...currentForm, questions: newQuestions } });
     },
     clearForm: () => {

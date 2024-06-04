@@ -4,6 +4,7 @@ import { Question } from "@/actions/form";
 
 import { EditButton, UniqueDropAnswers, UniqueRadioAnswers } from ".";
 import { useQuestionEditorStore } from "@/zustand";
+import { useQuestionEditor } from "@/hooks";
 
 interface Props {
   owner: boolean;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const Questions = ({ questions, owner, permission }: Props) => {
+  const { deleteQuestion } = useQuestionEditor();
   const { setQuestionToEdit, setIsOpenModal, setSubtypeSelected } =
     useQuestionEditorStore();
 
@@ -41,6 +43,7 @@ const Questions = ({ questions, owner, permission }: Props) => {
             owner={owner}
             permission={permission}
             onClick={() => openEdit(question)}
+            onDelete={() => deleteQuestion(question.id)}
           />
         </div>
       ))}

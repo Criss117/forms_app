@@ -2,6 +2,8 @@
 import { CardWrapper } from "@/components";
 import { PUBLIC_ROUTES } from "@/lib/constants";
 import { LoginForm } from "./_components";
+import { useEffect } from "react";
+import { useRecentStore } from "@/zustand";
 
 const footerButtons = [
   {
@@ -15,6 +17,12 @@ const footerButtons = [
 ];
 
 const LoginPage = () => {
+  const { clearRecent } = useRecentStore();
+
+  useEffect(() => {
+    clearRecent();
+  }, []);
+
   return (
     <CardWrapper
       headerLabel="Inicia sesión en Forms-App"

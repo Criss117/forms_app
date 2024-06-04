@@ -37,10 +37,6 @@ export const UserSheet = ({ user }: Props) => {
           <SheetTitle>
             {user.name} {user.surname}
           </SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
         </SheetHeader>
         <SheetFooter>
           <Button variant="destructive" onClick={() => signOut()}>

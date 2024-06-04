@@ -49,3 +49,8 @@ export const CreateQuestionSchemaClient = z.object({
   subtypeId: QuestionSchema.shape.subtypeId,
   answers: CreateQuestionSchema.shape.answers,
 });
+
+export const DeleteQuestionSchema = z.object({
+  questionId: QuestionSchema.shape.questionId,
+  jwtoken: JwtSchema.shape.jwtoken,
+});
